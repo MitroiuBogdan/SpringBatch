@@ -1,9 +1,7 @@
 package com.ing.casyadapterpoc.controller;
 
-import com.ing.casyadapterpoc.domain.Account;
 import com.ing.casyadapterpoc.domain.Transaction;
 import com.ing.casyadapterpoc.domain.Vendor;
-import com.ing.casyadapterpoc.service.AccountDelegatingService;
 import com.ing.casyadapterpoc.service.TransactionDelegatingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -18,14 +16,14 @@ import static com.ing.casyadapterpoc.logging.LoggingHelper.buildLogMessage;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("accounts")
+@RequestMapping("transactions")
 @Log
 public class TransactionController {
     private final TransactionDelegatingService transactionDelegatingService;
 
     @GetMapping
-    public Flux<Transaction> getAccounts(Vendor vendor) {
-        log.info("Getting accounts:");
+    public Flux<Transaction> getTransactions(Vendor vendor) {
+        log.info("Getting transactions:");
 
         return transactionDelegatingService.getTransactions(vendor)
                 .doOnNext(tx -> log.info(buildLogMessage(tx)));
@@ -33,8 +31,8 @@ public class TransactionController {
     }
 
     @GetMapping(path = "/{accountId}")
-    public Mono<Transaction> getAccount(Vendor vendor, @PathVariable String accountId) {
-        log.info("Getting account with id: "+ accountId);
+    public Mono<Transaction> getTransaction(Vendor vendor, @PathVariable String accountId) {
+        log.info("Getting transaction with id: "+ accountId);
         return transactionDelegatingService.getTransaction(vendor,accountId)
                 .doOnNext(tx -> log.info(buildLogMessage(tx)));
     }

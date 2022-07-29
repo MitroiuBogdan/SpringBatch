@@ -6,8 +6,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class ActionTrackerAspect {
 
     TestTrackerRepository testTrackerRepository;
