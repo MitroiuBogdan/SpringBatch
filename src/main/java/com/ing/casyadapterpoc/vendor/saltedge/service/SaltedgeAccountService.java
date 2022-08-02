@@ -1,21 +1,19 @@
 package com.ing.casyadapterpoc.vendor.saltedge.service;
 
-import com.ing.casyadapterpoc.domain.Account;
-import com.ing.casyadapterpoc.domain.Transaction;
-import com.ing.casyadapterpoc.domain.Vendor;
-import com.ing.casyadapterpoc.service.AccountVendorService;
-import com.ing.casyadapterpoc.vendor.saltedge.client.SaltEdgeClient;
+import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
+import com.ing.casyadapterpoc.common.domain.Vendor;
+import com.ing.casyadapterpoc.common.service.AccountVendorService;
+import com.ing.casyadapterpoc.vendor.saltedge.client.SaltEdgeClientImpl;
+import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltedgeAccountMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltedgeAccountMapper.SALTEDGE_ACCOUNT_MAPPER;
-
 @AllArgsConstructor
 @Service
 public class SaltedgeAccountService implements AccountVendorService {
-    private final SaltEdgeClient saltEdgeClient;
+    private final SaltEdgeClientImpl saltEdgeClient;
 
     private static final Vendor VENDOR = Vendor.SALTEDGE;
 
@@ -26,7 +24,7 @@ public class SaltedgeAccountService implements AccountVendorService {
 
     public Flux<Account> getAccounts(){
         return saltEdgeClient.getAccounts()
-                .map(SALTEDGE_ACCOUNT_MAPPER);
+                .map(SaltedgeAccountMapper.SALTEDGE_ACCOUNT_MAPPER);
     }
 
     @Override

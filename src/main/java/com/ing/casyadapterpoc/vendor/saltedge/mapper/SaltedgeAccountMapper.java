@@ -1,7 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
-import com.ing.casyadapterpoc.domain.Account;
-import com.ing.casyadapterpoc.vendor.saltedge.response.SaltedgeAccount;
+import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.response.SaltedgeAccount;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
