@@ -25,7 +25,7 @@ public class AccountResource {
     public Flux<Account> getAccounts(Vendor vendor) {
         log.info("Getting accounts:");
 
-        return accountDelegatingService.getAccounts(vendor)
+        return accountDelegatingService.getAccounts(Vendor.SALTEDGE)
                 .doOnNext(acc -> log.info(buildLogMessage(acc)));
 
     }

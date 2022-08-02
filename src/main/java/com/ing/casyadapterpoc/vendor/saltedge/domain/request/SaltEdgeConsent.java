@@ -18,7 +18,7 @@ public class SaltEdgeConsent {
     @NotNull
     @JsonProperty("scopes")
     List<String> scopes;
-
+//TODO to be changed to ZoneDateTime -> jackson error
     @JsonProperty("from_date")
     String activationDate;
     @JsonProperty("to_date")

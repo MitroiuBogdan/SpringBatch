@@ -3,7 +3,7 @@ package com.ing.casyadapterpoc.vendor.saltedge.service;
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.service.AccountVendorService;
-import com.ing.casyadapterpoc.vendor.saltedge.client.SaltEdgeClientImpl;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltedgeAccountMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.request.SaltEdgeAttempt;
 import com.ing.casyadapterpoc.vendor.saltedge.domain.request.SaltEdgeConsent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateConnectionSessionRequest {
+public class CreateConnectSessionRequest {
 
     @NotNull
     @JsonProperty("customer_id")
@@ -23,7 +24,7 @@ public class CreateConnectionSessionRequest {
     SaltEdgeConsent consent;
 
     @JsonProperty("attempt")
-    String attempt;
+    SaltEdgeAttempt attempt;
     @JsonProperty("provider_code")
     String providerCode;
     @JsonProperty("daily_refresh")

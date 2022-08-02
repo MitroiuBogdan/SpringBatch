@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.vendor.saltedge.client;
+package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 
 import com.ing.casyadapterpoc.vendor.saltedge.properties.SaltEdgeClientProperties;
 import io.netty.handler.ssl.SslContext;

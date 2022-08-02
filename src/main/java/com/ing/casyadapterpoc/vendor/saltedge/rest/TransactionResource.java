@@ -25,7 +25,7 @@ public class TransactionResource {
     public Flux<Transaction> getTransactions(Vendor vendor) {
         log.info("Getting transactions:");
 
-        return transactionDelegatingService.getTransactions(vendor)
+        return transactionDelegatingService.getTransactions(Vendor.SALTEDGE)
                 .doOnNext(tx -> log.info(buildLogMessage(tx)));
 
     }

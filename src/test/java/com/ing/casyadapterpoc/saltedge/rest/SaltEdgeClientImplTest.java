@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.ing.casyadapterpoc.saltedge.mock.MockData;
-import com.ing.casyadapterpoc.vendor.saltedge.client.SaltEdgeClientImpl;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.ConnectSessionDataRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.domain.enums.FetchDataScope;
 import com.ing.casyadapterpoc.vendor.saltedge.domain.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.CreateConnectionSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.SaltEdgeResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.CreateConnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionResponse;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.ing.casyadapterpoc.saltedge.mock.MockData.connectSessionResponseMock;
+import static com.ing.casyadapterpoc.saltedge.mock.MockData.createConnectSessionRequest;
 
 @WireMockTest(httpsEnabled = true, httpsPort = 8088)
 @SpringBootTest
@@ -33,27 +37,28 @@ class SaltEdgeClientImplTest {
 
     @Test
     @SneakyThrows
-    void test_createConnectSession() {
+    void when_createConnectSession_expect_200_connectSessionDataIsReturned() {
         LocalDateTime expectedDate = LocalDateTime.now();
-        SaltEdgeResponse saltEdgeResponse = MockData.createSaltEdgeResponse("example.com", expectedDate.toString());
-
-        SaltEdgeConsent consent = MockData.createConsent(
-                List.of(FetchDataScope.ACCOUNTS.getScopeValue(),
-                        FetchDataScope.TRANSACTIONS.getScopeValue()),
-                90);
-
-        CreateConnectionSessionRequest createRequest = MockData.createConnectionSessionRequest("111111111111111111", consent);
+        ConnectSessionResponse connectSessionResponse = connectSessionResponseMock("example.com", expectedDate.toString());
 
         stubFor(post("/v5/connect_sessions/create")
                 .willReturn(WireMock.aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
-                        .withBody(objMapper.writeValueAsString(saltEdgeResponse))));
+                        .withBody(objMapper.writeValueAsString(connectSessionResponse))));
 
-        Mono<SaltEdgeResponse> createResponse = saltEdgeClient.createConnectSession(createRequest);
+        SaltEdgeConsent consent = MockData.createConsent(
+                List.of(FetchDataScope.ACCOUNTS.getScopeValue(),
+                        FetchDataScope.TRANSACTIONS.getScopeValue()),
+                90);
+        CreateConnectSessionRequest createRequest = createConnectSessionRequest("111111111111111111", consent);
+        ConnectSessionDataRequest connectSessionDataRequest = new ConnectSessionDataRequest();
+        connectSessionDataRequest.setData(createRequest);
+
+        Mono<ConnectSessionData> createResponse = saltEdgeClient.createConnectSession(connectSessionDataRequest);
         StepVerifier
                 .create(createResponse)
-                .expectNext(saltEdgeResponse)
+                .expectNext(connectSessionResponse.getData())
                 .expectComplete()
                 .verify();
     }

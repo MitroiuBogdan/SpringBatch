@@ -1,40 +1,35 @@
 package com.ing.casyadapterpoc.saltedge.mock;
 
 import com.ing.casyadapterpoc.vendor.saltedge.domain.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.CreateConnectionSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.ConnectionSessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.ConnectionSessionResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.SaltEdgeResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.CreateConnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionResponse;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface MockData {
 
-    static ConnectionSessionResponse connectionSessionResponseMock(String connectionUrl, String date) {
-        return ConnectionSessionResponse.builder()
+    static ConnectSessionResponse connectSessionResponseMock(String connectionUrl, String date) {
+        return ConnectSessionResponse.builder()
                 .data(
-                        ConnectionSessionData.builder()
+                        ConnectSessionData.builder()
                                 .connectUrl(connectionUrl)
                                 .expiresAt(date)
                                 .build())
                 .build();
     }
 
-    static SaltEdgeResponse createSaltEdgeResponse(String connectionUrl, String date) {
-        return SaltEdgeResponse.builder()
-                .data(
-                        ConnectionSessionData.builder()
-                                .connectUrl(connectionUrl)
-                                .expiresAt(date)
-                                .build())
+    static ConnectSessionData connectSessionDataResponse(String connectionUrl, String date) {
+        return ConnectSessionData.builder()
+                .connectUrl(connectionUrl)
+                .expiresAt(date)
                 .build();
     }
 
 
-    static CreateConnectionSessionRequest createConnectionSessionRequest(String customerId, SaltEdgeConsent consent) {
-        return CreateConnectionSessionRequest.builder()
+    static CreateConnectSessionRequest createConnectSessionRequest(String customerId, SaltEdgeConsent consent) {
+        return CreateConnectSessionRequest.builder()
                 .customerId(customerId)
                 .consent(consent)
                 .dailyRefresh(true)
