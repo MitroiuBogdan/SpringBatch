@@ -2,13 +2,13 @@ package com.ing.casyadapterpoc.saltedge.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltEdgeCreateSessionRequestMapper;
-import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltEdgeReconnectSessionRequestMapper;
+import com.ing.casyadapterpoc.vendor.saltedge.mapper.CreateSessionToSaltEdgeSessionMapper;
+import com.ing.casyadapterpoc.vendor.saltedge.mapper.ReconnectSessionToSaltEdgeSessionMapper;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.enums.FetchDataScope;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSaltEdgeSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -20,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 public class MappersTest {
 
-    SaltEdgeCreateSessionRequestMapper toSaltEdgeCreateSessionRequest = new SaltEdgeCreateSessionRequestMapper();
-    SaltEdgeReconnectSessionRequestMapper toSaltEdgeReconnectSessionRequest = new SaltEdgeReconnectSessionRequestMapper();
+    CreateSessionToSaltEdgeSessionMapper toSaltEdgeCreateSessionRequest = new CreateSessionToSaltEdgeSessionMapper();
+    ReconnectSessionToSaltEdgeSessionMapper toSaltEdgeReconnectSessionRequest = new ReconnectSessionToSaltEdgeSessionMapper();
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -35,7 +35,7 @@ public class MappersTest {
                 .scopes(List.of(FetchDataScope.ACCOUNTS.getScopeValue(), FetchDataScope.TRANSACTIONS.getScopeValue()))
                 .build();
 
-        CreateSaltEdgeSessionRequest request = toSaltEdgeCreateSessionRequest
+        CreateSessionRequestSaltEdge request = toSaltEdgeCreateSessionRequest
                 .mapTo(createSessionRequest)
                 .orElse(null);
 
@@ -46,7 +46,7 @@ public class MappersTest {
 
         log.info("Json format for SaltEdegeCreateSessionRequest {}", objectMapper.writeValueAsString(createSessionRequest));
 
-        SaltEdgeRequest<CreateSaltEdgeSessionRequest> saltEdgeRequest = toSaltEdgeCreateSessionRequest
+        SaltEdgeRequest<CreateSessionRequestSaltEdge> saltEdgeRequest = toSaltEdgeCreateSessionRequest
                 .mapTo(createSessionRequest)
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
@@ -73,7 +73,7 @@ public class MappersTest {
                 .scopes(List.of(FetchDataScope.ACCOUNTS.getScopeValue(), FetchDataScope.TRANSACTIONS.getScopeValue()))
                 .build();
 
-        ReconnectSaltEdgeSessionRequest request = toSaltEdgeReconnectSessionRequest
+        ReconnectSessionRequestSaltEdge request = toSaltEdgeReconnectSessionRequest
                 .mapTo(reconnectSessionRequest)
                 .orElse(null);
 
@@ -84,7 +84,7 @@ public class MappersTest {
 
         log.info("Json format for SaltEdegeCreateSessionRequest {}", objectMapper.writeValueAsString(reconnectSessionRequest));
 
-        SaltEdgeRequest<ReconnectSaltEdgeSessionRequest> saltEdgeRequest = toSaltEdgeReconnectSessionRequest
+        SaltEdgeRequest<ReconnectSessionRequestSaltEdge> saltEdgeRequest = toSaltEdgeReconnectSessionRequest
                 .mapTo(reconnectSessionRequest)
                 .map(SaltEdgeRequest::new)
                 .orElse(null);

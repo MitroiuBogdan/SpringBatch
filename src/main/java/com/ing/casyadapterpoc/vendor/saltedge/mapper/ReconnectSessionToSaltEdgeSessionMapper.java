@@ -2,7 +2,7 @@ package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSaltEdgeSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequest;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,13 +11,13 @@ import java.util.Optional;
 
 @NoArgsConstructor
 @Component
-public class SaltEdgeReconnectSessionRequestMapper {
+public class ReconnectSessionToSaltEdgeSessionMapper {
 
-    public Optional<ReconnectSaltEdgeSessionRequest> mapTo(ReconnectSessionRequest source) {
+    public Optional<ReconnectSessionRequestSaltEdge> mapTo(ReconnectSessionRequest source) {
         if (source == null) {
             return Optional.empty();
         }
-        ReconnectSaltEdgeSessionRequest target = ReconnectSaltEdgeSessionRequest.builder()
+        ReconnectSessionRequestSaltEdge target = ReconnectSessionRequestSaltEdge.builder()
                 .connectionId(source.getProviderGrantId())
                 .customerId(source.getProviderUserId())
                 .providerCode(source.getProviderCode())

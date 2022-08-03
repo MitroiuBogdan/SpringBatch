@@ -7,9 +7,9 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConnectSessionResponse {
+public class SessionResponse {
 
     @JsonProperty("data")
-    ConnectSessionData data;
+    SessionData data;
 }
 

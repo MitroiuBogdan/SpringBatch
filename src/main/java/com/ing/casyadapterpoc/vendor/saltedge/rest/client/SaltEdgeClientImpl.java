@@ -5,8 +5,8 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeA
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccountResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransaction;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransactionResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.utils.ResponseHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,39 +27,39 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private final WebClient webClient;
 
     @Override
-    public Mono<ConnectSessionData> createConnectSession(SaltEdgeRequest requestBody) {
+    public Mono<SessionData> createSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path(SALTEDGE_CONNECT_PATH+"/create")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(ConnectSessionResponse.class)
-                .map(ConnectSessionResponse::getData);
+                .bodyToMono(SessionResponse.class)
+                .map(SessionResponse::getData);
     }
 
     @Override
-    public Mono<ConnectSessionData> refreshConnectSession(SaltEdgeRequest requestBody) {
+    public Mono<SessionData> refreshSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path(SALTEDGE_CONNECT_PATH+"/refresh")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(ConnectSessionResponse.class)
-                .map(ConnectSessionResponse::getData);
+                .bodyToMono(SessionResponse.class)
+                .map(SessionResponse::getData);
     }
 
     @Override
-    public Mono<ConnectSessionData> reconnectConnectSession(SaltEdgeRequest requestBody) {
+    public Mono<SessionData> reconnectSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path(SALTEDGE_CONNECT_PATH+"/reconnect")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(ConnectSessionResponse.class)
-                .map(ConnectSessionResponse::getData);
+                .bodyToMono(SessionResponse.class)
+                .map(SessionResponse::getData);
     }
 
 

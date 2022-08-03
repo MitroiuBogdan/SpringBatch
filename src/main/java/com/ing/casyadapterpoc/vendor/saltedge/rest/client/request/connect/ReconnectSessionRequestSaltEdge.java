@@ -12,22 +12,26 @@ import javax.validation.constraints.NotNull;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReconnectSaltEdgeSessionRequest {
+public class ReconnectSessionRequestSaltEdge {
 
     @NotNull
     @JsonProperty("connection_id")
     String connectionId;
+
     @NotNull
     @JsonProperty("customer_id")
     String customerId;
+
     @NotNull
     @JsonProperty("consent")
     SaltEdgeConsent consent;
 
     @JsonProperty("attempt")
     SaltEdgeAttempt attempt;
+
     @JsonProperty("provider_code")
     String providerCode;
+
     @JsonProperty("daily_refresh")
     boolean dailyRefresh;
 

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConnectSessionData {
+public class SessionData {
     @NotNull
     @JsonProperty("connect_url")
     String connectUrl;

@@ -1,14 +1,14 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.controllers;
 
 
-import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltEdgeCreateSessionRequestMapper;
-import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltEdgeReconnectSessionRequestMapper;
+import com.ing.casyadapterpoc.vendor.saltedge.mapper.CreateSessionToSaltEdgeSessionMapper;
+import com.ing.casyadapterpoc.vendor.saltedge.mapper.ReconnectSessionToSaltEdgeSessionMapper;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,40 +20,40 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/connect-flow")
+@RequestMapping("/saltedge/connect-session")
 public class ConnectSessionController {
 
     private final SaltEdgeClientImpl saltEdgeClient;
-    private final SaltEdgeCreateSessionRequestMapper toSaltegeCreateMapper;
-    private final SaltEdgeReconnectSessionRequestMapper toSaltegeReconnectMapper;
+    private final CreateSessionToSaltEdgeSessionMapper toCreateSaltEdgeSession;
+    private final ReconnectSessionToSaltEdgeSessionMapper toReconnectSaltEdgeSession;
 
     @PostMapping("/create")
-    public Mono<ConnectSessionData> createGrant(@RequestBody CreateSessionRequest request) {
+    public Mono<SessionData> createSession(@RequestBody CreateSessionRequest request) {
         log.info("createGrant - create grant for request {}", request.toString());
 
-        SaltEdgeRequest saltEdgeRequest = toSaltegeCreateMapper
+        SaltEdgeRequest seRequest = toCreateSaltEdgeSession
                 .mapTo(request)
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
 
-        return saltEdgeClient.createConnectSession(saltEdgeRequest);
+        return saltEdgeClient.createSaltEdgeSession(seRequest);
     }
 
     @PostMapping("/reconnect")
-    public Mono<ConnectSessionData> reconnectGrant(@RequestBody ReconnectSessionRequest request) {
+    public Mono<SessionData> reconnectSession(@RequestBody ReconnectSessionRequest request) {
         log.info("reconnectGrant - reconnect grant for request {}", request.toString());
 
-        SaltEdgeRequest saltEdgeRequest = toSaltegeReconnectMapper
+        SaltEdgeRequest seRequest = toReconnectSaltEdgeSession
                 .mapTo(request)
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
 
-        return saltEdgeClient.reconnectConnectSession(saltEdgeRequest);
+        return saltEdgeClient.reconnectSaltEdgeSession(seRequest);
 
     }
 
     @PostMapping("/refresh")
-    public Mono<ConnectSessionData> refreshGrant(@RequestBody CreateSaltEdgeSessionRequest request) {
+    public Mono<SessionData> refreshSession(@RequestBody CreateSessionRequestSaltEdge request) {
         return null;
     }
 

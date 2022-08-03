@@ -1,44 +1,36 @@
 package com.ing.casyadapterpoc.saltedge.mock;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSaltEdgeSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequestSaltEdge;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequestSaltEdge;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface MockData {
 
-    static ConnectSessionResponse connectSessionResponseMock(String connectionUrl, String date) {
-        return ConnectSessionResponse.builder()
+    static SessionResponse sessionResponseMock(String connectionUrl, String date) {
+        return SessionResponse.builder()
                 .data(
-                        ConnectSessionData.builder()
+                        SessionData.builder()
                                 .connectUrl(connectionUrl)
                                 .expiresAt(date)
                                 .build())
                 .build();
     }
 
-    static ConnectSessionData connectSessionDataResponse(String connectionUrl, String date) {
-        return ConnectSessionData.builder()
-                .connectUrl(connectionUrl)
-                .expiresAt(date)
-                .build();
-    }
-
-
-    static CreateSaltEdgeSessionRequest createConnectSessionRequest(String customerId, SaltEdgeConsent consent) {
-        return CreateSaltEdgeSessionRequest.builder()
+    static CreateSessionRequestSaltEdge createSessionRequestSaltEdgeMock(String customerId, SaltEdgeConsent consent) {
+        return CreateSessionRequestSaltEdge.builder()
                 .customerId(customerId)
                 .consent(consent)
                 .dailyRefresh(true)
                 .build();
     }
 
-    static ReconnectSaltEdgeSessionRequest createReconnectSessionRequest(String connectionId, String customerId, SaltEdgeConsent consent) {
-        return ReconnectSaltEdgeSessionRequest.builder()
+    static ReconnectSessionRequestSaltEdge reconnectSessionRequestSaltEdgeMock(String connectionId, String customerId, SaltEdgeConsent consent) {
+        return ReconnectSessionRequestSaltEdge.builder()
                 .connectionId(connectionId)
                 .customerId(customerId)
                 .consent(consent)
@@ -46,7 +38,7 @@ public interface MockData {
                 .build();
     }
 
-    static SaltEdgeConsent createConsent(List<String> scopes, int validityDays) {
+    static SaltEdgeConsent consentMock(List<String> scopes, int validityDays) {
         return SaltEdgeConsent.builder()
                 .scopes(scopes)
                 .activationDate(ZonedDateTime.now().toString())

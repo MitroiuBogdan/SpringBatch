@@ -12,19 +12,22 @@ import javax.validation.constraints.NotNull;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateSaltEdgeSessionRequest {
+public class CreateSessionRequestSaltEdge {
 
     @NotNull
     @JsonProperty("customer_id")
     String customerId;
+
     @NotNull
     @JsonProperty("consent")
     SaltEdgeConsent consent;
 
     @JsonProperty("attempt")
     SaltEdgeAttempt attempt;
+
     @JsonProperty("provider_code")
     String providerCode;
+
     @JsonProperty("daily_refresh")
     boolean dailyRefresh;
 

@@ -16,19 +16,24 @@ public class ReconnectSessionRequest {
     @NotNull
     @JsonProperty("providerGrantId")
     String providerGrantId;
+
     @NotNull
     @JsonProperty("providerUserId")
     String providerUserId;
+
     @NotNull
     @JsonProperty("providerCode")
     String providerCode;
 
     @JsonProperty("activationDate")
     String activationDate;
+
     @JsonProperty("expirationDate")
     String expirationDate;
+
     @JsonProperty("consentValidityDays")
     Integer consentValidityDays;
+
     @JsonProperty("dailyRefresh")
     boolean dailyRefresh;
 
