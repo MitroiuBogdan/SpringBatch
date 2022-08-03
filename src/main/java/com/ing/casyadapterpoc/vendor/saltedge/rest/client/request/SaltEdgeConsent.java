@@ -24,6 +24,6 @@ public class SaltEdgeConsent {
     @JsonProperty("to_date")
     String expirationDate;
     @JsonProperty("period_day")
-    int consentValidityDays;
+    Integer consentValidityDays;
 
 }

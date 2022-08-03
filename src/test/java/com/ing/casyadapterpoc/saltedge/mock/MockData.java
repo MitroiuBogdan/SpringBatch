@@ -1,7 +1,7 @@
 package com.ing.casyadapterpoc.saltedge.mock;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateConnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionResponse;
 
@@ -28,8 +28,8 @@ public interface MockData {
     }
 
 
-    static CreateConnectSessionRequest createConnectSessionRequest(String customerId, SaltEdgeConsent consent) {
-        return CreateConnectSessionRequest.builder()
+    static CreateSaltEdgeSessionRequest createConnectSessionRequest(String customerId, SaltEdgeConsent consent) {
+        return CreateSaltEdgeSessionRequest.builder()
                 .customerId(customerId)
                 .consent(consent)
                 .dailyRefresh(true)

@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.ing.casyadapterpoc.saltedge.mock.MockData;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ConnectSessionDataRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.enums.FetchDataScope;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateConnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionResponse;
 import lombok.SneakyThrows;
@@ -51,11 +51,12 @@ class SaltEdgeClientImplTest {
                 List.of(FetchDataScope.ACCOUNTS.getScopeValue(),
                         FetchDataScope.TRANSACTIONS.getScopeValue()),
                 90);
-        CreateConnectSessionRequest createRequest = createConnectSessionRequest("111111111111111111", consent);
-        ConnectSessionDataRequest connectSessionDataRequest = new ConnectSessionDataRequest();
+        CreateSaltEdgeSessionRequest createRequest = createConnectSessionRequest("111111111111111111", consent);
+        SaltEdgeRequest connectSessionDataRequest = new SaltEdgeRequest(createRequest);
         connectSessionDataRequest.setData(createRequest);
 
         Mono<ConnectSessionData> createResponse = saltEdgeClient.createConnectSession(connectSessionDataRequest);
+
         StepVerifier
                 .create(createResponse)
                 .expectNext(connectSessionResponse.getData())

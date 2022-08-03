@@ -1,10 +1,10 @@
 package com.ing.casyadapterpoc.common.controller;
 
-import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
 import com.ing.casyadapterpoc.common.domain.Vendor;
+import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
 import com.ing.casyadapterpoc.common.service.AccountDelegatingService;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,7 @@ import static com.ing.casyadapterpoc.common.logging.LoggingHelper.buildLogMessag
 @AllArgsConstructor
 @RestController
 @RequestMapping("accounts")
-@Log
+@Slf4j
 public class AccountController {
     private final AccountDelegatingService accountDelegatingService;
 

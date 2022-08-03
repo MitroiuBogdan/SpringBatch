@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateConnectSessionRequest {
+public class CreateSaltEdgeSessionRequest {
 
     @NotNull
     @JsonProperty("customer_id")
