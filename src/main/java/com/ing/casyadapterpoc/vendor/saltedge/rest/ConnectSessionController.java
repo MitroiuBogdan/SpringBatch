@@ -1,10 +1,10 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest;
 
 
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.ConnectSessionDataRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ConnectSessionDataRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.CreateConnectSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateConnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,8 +1,8 @@
-package com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect;
+package com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.SaltEdgeAttempt;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.SaltEdgeConsent;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

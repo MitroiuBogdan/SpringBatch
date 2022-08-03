@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.vendor.saltedge.domain.response.ais;
+package com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais;
 
 import lombok.*;
 

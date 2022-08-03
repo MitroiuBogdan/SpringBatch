@@ -1,6 +1,6 @@
 package com.ing.casyadapterpoc.vendor.saltedge.utils;
 
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.SaltEdgeListResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeListResponse;
 import reactor.core.publisher.Flux;
 
 public interface ResponseHelper {

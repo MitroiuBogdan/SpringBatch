@@ -1,11 +1,11 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.CreateConnectSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.ReconnectConnectionSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.ais.SaltedgeAccount;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.ais.SaltedgeTransaction;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateConnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectConnectionSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccount;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransaction;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.vendor.saltedge.domain.enums;
+package com.ing.casyadapterpoc.vendor.saltedge.rest.client.enums;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect;
+package com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

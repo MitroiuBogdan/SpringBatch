@@ -1,9 +1,9 @@
 package com.ing.casyadapterpoc.saltedge.mock;
 
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.request.connect.CreateConnectSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.domain.response.connect.ConnectSessionResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateConnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionResponse;
 
 import java.time.ZonedDateTime;
 import java.util.List;
