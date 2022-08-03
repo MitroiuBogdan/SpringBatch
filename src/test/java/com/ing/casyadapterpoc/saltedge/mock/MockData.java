@@ -3,6 +3,7 @@ package com.ing.casyadapterpoc.saltedge.mock;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequestSaltEdge;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.RefreshSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
 
@@ -34,6 +35,14 @@ public interface MockData {
                 .connectionId(connectionId)
                 .customerId(customerId)
                 .consent(consent)
+                .dailyRefresh(true)
+                .build();
+    }
+
+    static RefreshSessionRequestSaltEdge refreshSessionRequestSaltEdgeMock(String connectionId, String customerId) {
+        return RefreshSessionRequestSaltEdge.builder()
+                .connectionId(connectionId)
+                .customerId(customerId)
                 .dailyRefresh(true)
                 .build();
     }
