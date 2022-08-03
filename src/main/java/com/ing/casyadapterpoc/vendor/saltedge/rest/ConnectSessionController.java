@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/connect-flow")
-public class ConnectSessionResource {
+public class ConnectSessionController {
 
     SaltEdgeClientImpl saltEdgeClient;
 

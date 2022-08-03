@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.vendor.saltedge.rest;
+package com.ing.casyadapterpoc.common.controller;
 
 import com.ing.casyadapterpoc.common.domain.casy_entity.Transaction;
 import com.ing.casyadapterpoc.common.domain.Vendor;
@@ -18,7 +18,7 @@ import static com.ing.casyadapterpoc.common.logging.LoggingHelper.buildLogMessag
 @RestController
 @RequestMapping("transactions")
 @Log
-public class TransactionResource {
+public class TransactionController {
     private final TransactionDelegatingService transactionDelegatingService;
 
     @GetMapping
