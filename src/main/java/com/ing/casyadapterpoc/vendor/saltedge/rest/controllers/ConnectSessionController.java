@@ -1,11 +1,13 @@
-package com.ing.casyadapterpoc.vendor.saltedge.rest;
+package com.ing.casyadapterpoc.vendor.saltedge.rest.controllers;
 
 
 import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltEdgeCreateSessionRequestMapper;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltEdgeReconnectSessionRequestMapper;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +23,9 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/connect-flow")
 public class ConnectSessionController {
 
-    SaltEdgeClientImpl saltEdgeClient;
-    SaltEdgeCreateSessionRequestMapper toSaltegeCreateMapper;
+    private final SaltEdgeClientImpl saltEdgeClient;
+    private final SaltEdgeCreateSessionRequestMapper toSaltegeCreateMapper;
+    private final SaltEdgeReconnectSessionRequestMapper toSaltegeReconnectMapper;
 
     @PostMapping("/create")
     public Mono<ConnectSessionData> createGrant(@RequestBody CreateSessionRequest request) {
@@ -37,8 +40,16 @@ public class ConnectSessionController {
     }
 
     @PostMapping("/reconnect")
-    public Mono<ConnectSessionData> reconnectGrant(@RequestBody CreateSaltEdgeSessionRequest request) {
-        return null;
+    public Mono<ConnectSessionData> reconnectGrant(@RequestBody ReconnectSessionRequest request) {
+        log.info("reconnectGrant - reconnect grant for request {}", request.toString());
+
+        SaltEdgeRequest saltEdgeRequest = toSaltegeReconnectMapper
+                .mapTo(request)
+                .map(SaltEdgeRequest::new)
+                .orElse(null);
+
+        return saltEdgeClient.reconnectConnectSession(saltEdgeRequest);
+
     }
 
     @PostMapping("/refresh")

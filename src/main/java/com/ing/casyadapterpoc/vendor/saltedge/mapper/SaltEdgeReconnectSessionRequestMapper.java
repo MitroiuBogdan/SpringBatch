@@ -2,8 +2,8 @@ package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSaltEdgeSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequest;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,13 +11,14 @@ import java.util.Optional;
 
 @NoArgsConstructor
 @Component
-public class SaltEdgeCreateSessionRequestMapper {
+public class SaltEdgeReconnectSessionRequestMapper {
 
-    public Optional<CreateSaltEdgeSessionRequest> mapTo(CreateSessionRequest source) {
+    public Optional<ReconnectSaltEdgeSessionRequest> mapTo(ReconnectSessionRequest source) {
         if (source == null) {
             return Optional.empty();
         }
-        CreateSaltEdgeSessionRequest target = CreateSaltEdgeSessionRequest.builder()
+        ReconnectSaltEdgeSessionRequest target = ReconnectSaltEdgeSessionRequest.builder()
+                .connectionId(source.getProviderGrantId())
                 .customerId(source.getProviderUserId())
                 .providerCode(source.getProviderCode())
                 .dailyRefresh(source.isDailyRefresh())

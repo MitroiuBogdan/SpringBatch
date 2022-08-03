@@ -9,6 +9,7 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.enums.FetchDataScope;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSaltEdgeSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSaltEdgeSessionRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.ConnectSessionResponse;
 import lombok.SneakyThrows;
@@ -23,8 +24,7 @@ import java.util.List;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.ing.casyadapterpoc.saltedge.mock.MockData.connectSessionResponseMock;
-import static com.ing.casyadapterpoc.saltedge.mock.MockData.createConnectSessionRequest;
+import static com.ing.casyadapterpoc.saltedge.mock.MockData.*;
 
 @WireMockTest(httpsEnabled = true, httpsPort = 8088)
 @SpringBootTest
@@ -65,11 +65,37 @@ class SaltEdgeClientImplTest {
     }
 
     @Test
-    void refreshConnectSession() {
+    @SneakyThrows
+    void when_reconnectConnectSession_expect_200_connectSessionDataIsReturned() {
+        LocalDateTime expectedDate = LocalDateTime.now();
+        ConnectSessionResponse connectSessionResponse = connectSessionResponseMock("example.com", expectedDate.toString());
+
+        stubFor(post("/v5/connect_sessions/reconnect")
+                .willReturn(WireMock.aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(objMapper.writeValueAsString(connectSessionResponse))));
+
+        SaltEdgeConsent consent = MockData.createConsent(
+                List.of(FetchDataScope.ACCOUNTS.getScopeValue(),
+                        FetchDataScope.TRANSACTIONS.getScopeValue()),
+                90);
+        ReconnectSaltEdgeSessionRequest createRequest = createReconnectSessionRequest("111111111111111222", "111111111111111111", consent);
+        SaltEdgeRequest connectSessionDataRequest = new SaltEdgeRequest(createRequest);
+        connectSessionDataRequest.setData(createRequest);
+
+        Mono<ConnectSessionData> createResponse = saltEdgeClient.reconnectConnectSession(connectSessionDataRequest);
+
+        StepVerifier
+                .create(createResponse)
+                .expectNext(connectSessionResponse.getData())
+                .expectComplete()
+                .verify();
     }
 
+
     @Test
-    void reconnectConnectSession() {
+    void refreshConnectSession() {
     }
 
     @Test

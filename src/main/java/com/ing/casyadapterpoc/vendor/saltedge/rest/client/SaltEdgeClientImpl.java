@@ -22,7 +22,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
 
     private static final String SALTEDGE_ACCOUNT_PATH = "v5/accounts";
     private static final String SALTEDGE_TRASACTION_PATH = "v5/transactions";
-    private static final String SALTEDGE_CONNECT_PATH = "v5/connect_sessions/create";
+    private static final String SALTEDGE_CONNECT_PATH = "v5/connect_sessions";
 
     private final WebClient webClient;
 
@@ -30,7 +30,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     public Mono<ConnectSessionData> createConnectSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECT_PATH)
+                        .path(SALTEDGE_CONNECT_PATH+"/create")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
@@ -41,7 +41,9 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     @Override
     public Mono<ConnectSessionData> refreshConnectSession(SaltEdgeRequest requestBody) {
         return webClient.post()
-                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_CONNECT_PATH).build())
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CONNECT_PATH+"/refresh")
+                        .build())
                 .body(fromValue(requestBody))
                 .retrieve()
                 .bodyToMono(ConnectSessionResponse.class)
@@ -51,7 +53,9 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     @Override
     public Mono<ConnectSessionData> reconnectConnectSession(SaltEdgeRequest requestBody) {
         return webClient.post()
-                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_CONNECT_PATH).build())
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CONNECT_PATH+"/reconnect")
+                        .build())
                 .body(fromValue(requestBody))
                 .retrieve()
                 .bodyToMono(ConnectSessionResponse.class)

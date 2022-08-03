@@ -12,8 +12,11 @@ import javax.validation.constraints.NotNull;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateSaltEdgeSessionRequest {
+public class ReconnectSaltEdgeSessionRequest {
 
+    @NotNull
+    @JsonProperty("connection_id")
+    String connectionId;
     @NotNull
     @JsonProperty("customer_id")
     String customerId;
