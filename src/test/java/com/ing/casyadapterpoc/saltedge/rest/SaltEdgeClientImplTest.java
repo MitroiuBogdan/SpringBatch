@@ -5,12 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import com.ing.casyadapterpoc.saltedge.mock.MockData;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.enums.FetchDataScope;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequestSaltEdge;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequestSaltEdge;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
 import lombok.SneakyThrows;
@@ -49,8 +47,8 @@ class SaltEdgeClientImplTest {
                         .withBody(objMapper.writeValueAsString(sessionResponse))));
 
         SaltEdgeConsent consent = MockData.consentMock(
-                List.of(FetchDataScope.ACCOUNTS.getScopeValue(),
-                        FetchDataScope.TRANSACTIONS.getScopeValue()),
+                List.of(FetchDataScope.ACCOUNTS.value(),
+                        FetchDataScope.TRANSACTIONS.value()),
                 90);
 
         SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(createSessionRequestSaltEdgeMock("111111111111111111", consent));
@@ -75,8 +73,8 @@ class SaltEdgeClientImplTest {
                         .withBody(objMapper.writeValueAsString(sessionResponse))));
 
         SaltEdgeConsent consent = MockData.consentMock(
-                List.of(FetchDataScope.ACCOUNTS.getScopeValue(),
-                        FetchDataScope.TRANSACTIONS.getScopeValue()),
+                List.of(FetchDataScope.ACCOUNTS.value(),
+                        FetchDataScope.TRANSACTIONS.value()),
                 90);
 
         SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(reconnectSessionRequestSaltEdgeMock("111111111111111222", "111111111111111111", consent));

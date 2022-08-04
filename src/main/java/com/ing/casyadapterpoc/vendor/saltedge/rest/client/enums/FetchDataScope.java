@@ -1,29 +1,16 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.client.enums;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum FetchDataScope {
     ACCOUNTS("account_details"),
     TRANSACTIONS("holder_details"),
     HOLDER("transactions_details");
-
-    public static final Map<String, String> valueByScope;
-    private final String scopeValue;
-
-    static {
-        valueByScope = new HashMap<>();
-        for (FetchDataScope value : FetchDataScope.values()) {
-            valueByScope.put(value.getScopeValue(), value.toString());
-        }
-    }
+    private String value;
 
     FetchDataScope(String value) {
-        this.scopeValue = value;
+        this.value = value;
     }
 
-    public String getScopeValue() {
-        return scopeValue;
+    public String value() {
+        return value;
     }
-
 }
