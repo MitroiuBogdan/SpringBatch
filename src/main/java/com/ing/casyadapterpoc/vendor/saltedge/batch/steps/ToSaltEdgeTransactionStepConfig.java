@@ -31,7 +31,7 @@ public class ToSaltEdgeTransactionStepConfig {
                 .get("toSaltEdgeTransactionStep")
                 .tasklet((contribution, chunkContext) -> {
                             log.info("toSaltEdgeTransactionStep - Start fetching transaction for connectionId: {}", connectionId);
-                            List<Transaction> transactionList = transactionDelegatingService.getTransactions(Vendor.SALTEDGE, connectionId)
+                            List<Transaction> transactionList = transactionDelegatingService.getTransactions(Vendor.SALTEDGE, connectionId, null)
                                     .collectList()
                                     .block();
                             transactionList.forEach(transaction -> log.info("Transaction: [{}]", transaction.toString()));

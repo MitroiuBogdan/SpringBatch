@@ -19,9 +19,9 @@ public class SaltedgeTransactionService implements TransactionVendorService {
     private final SaltEdgeClientImpl saltEdgeClient;
 
     @Override
-    public Flux<Transaction> getTransactions(String connectionId) {
+    public Flux<Transaction> getTransactions(String connectionId, String accountId) {
 
-        return saltEdgeClient.getTransactions(connectionId)
+        return saltEdgeClient.getTransactions(connectionId, accountId)
                 .map(SALTEDGE_TX_MAPPER);
     }
 

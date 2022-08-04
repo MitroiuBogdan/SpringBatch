@@ -20,9 +20,6 @@ public interface SaltEdgeClient {
 
     Flux<SaltedgeAccount> getAccounts(String connectionId);
 
-    Flux<SaltedgeTransaction> getTransactions(String connectionId);
-
-    Flux<SaltedgeTransaction> getTransactionsByAccountId(String connectionId, String accountId);
-
+    Flux<SaltedgeTransaction> getTransactions(String connectionId, String accountId);
 
 }

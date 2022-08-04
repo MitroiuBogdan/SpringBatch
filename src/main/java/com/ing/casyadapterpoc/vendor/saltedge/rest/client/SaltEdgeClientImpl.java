@@ -14,6 +14,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
 @Service
@@ -74,20 +77,11 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     }
 
     @Override
-    public Flux<SaltedgeTransaction> getTransactions(String connectionId) {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_TRASACTION_PATH)
-                        .queryParam("connection_id", connectionId).build())
-                .retrieve().bodyToMono(SaltedgeTransactionResponse.class)
-                .flatMapMany(ResponseHelper::getFluxFromData);
-    }
-
-    @Override
-    public Flux<SaltedgeTransaction> getTransactionsByAccountId(String connectionId, String accountId) {
+    public Flux<SaltedgeTransaction> getTransactions(String connectionId, String accountId) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder.path(SALTEDGE_TRASACTION_PATH)
                         .queryParam("connection_id", connectionId)
-                        .queryParam("account_id", accountId)
+                        .queryParamIfPresent("account_id", ofNullable(accountId))
                         .build())
                 .retrieve().bodyToMono(SaltedgeTransactionResponse.class)
                 .flatMapMany(ResponseHelper::getFluxFromData);

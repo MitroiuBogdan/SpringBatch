@@ -4,9 +4,10 @@ import com.ing.casyadapterpoc.common.domain.casy_entity.Transaction;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface TransactionVendorService extends VendorService{
+public interface TransactionVendorService extends VendorService {
 
 
-    Flux<Transaction> getTransactions(String connectionId);
+    Flux<Transaction> getTransactions(String providerGrantId, String providerAccountId);
+
     Mono<Transaction> getTransaction(String transactionId);
 }

@@ -4,9 +4,9 @@ import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface AccountVendorService extends VendorService{
+public interface AccountVendorService extends VendorService {
 
-    Flux<Account> getAccounts(String connectionId);
+    Flux<Account> getAccounts(String providerGrantId);
 
     Mono<Account> getAccount(String accountId);
 }

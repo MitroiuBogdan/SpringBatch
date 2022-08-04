@@ -16,16 +16,16 @@ import static com.ing.casyadapterpoc.common.logging.LoggingHelper.buildLogMessag
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("accounts")
+@RequestMapping("casypoc")
 @Slf4j
 public class AccountController {
     private final AccountDelegatingService accountDelegatingService;
 
-    @GetMapping
-    public Flux<Account> getAccounts(Vendor vendor, String connectionId) {
-        log.info("Getting accounts:");
+    @GetMapping({"{vendor}/{providerGrantId}/accounts"})
+    public Flux<Account> getAccounts(@PathVariable Vendor vendor, @PathVariable String providerGrantId) {
+        log.info("Getting accounts for vendor: {}, providerGrantId: {}", vendor.name(), providerGrantId);
 
-        return accountDelegatingService.getAccounts(vendor, connectionId)
+        return accountDelegatingService.getAccounts(vendor, providerGrantId)
                 .doOnNext(acc -> log.info(buildLogMessage(acc)));
 
     }
