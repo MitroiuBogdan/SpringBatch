@@ -1,7 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.controllers;
 
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.callback.NotifyCallback;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.callback.NotifyCallbackData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.callback.NotifyCallback;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.callback.NotifyCallbackData;
 import com.ing.casyadapterpoc.vendor.saltedge.service.SaltEdgeCallbackService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
