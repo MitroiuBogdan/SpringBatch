@@ -31,7 +31,7 @@ public class ConnectSessionController {
 
     @PostMapping("/create")
     public Mono<SessionData> createSession(@RequestBody CreateSessionRequest request) {
-        log.info("createGrant - create grant for request {}", request.toString());
+        log.info("createSession - Creating session using request: {}", request.toString());
 
         SaltEdgeRequest seRequest = toCreateSaltEdgeSession
                 .mapTo(request)
@@ -43,7 +43,7 @@ public class ConnectSessionController {
 
     @PostMapping("/reconnect")
     public Mono<SessionData> reconnectSession(@RequestBody ReconnectSessionRequest request) {
-        log.info("reconnectGrant - reconnect grant for request {}", request.toString());
+        log.info("reconnectSession - Reconnecting session using request: {}", request.toString());
 
         SaltEdgeRequest seRequest = toReconnectSaltEdgeSession
                 .mapTo(request)
@@ -56,6 +56,8 @@ public class ConnectSessionController {
 
     @PostMapping("/refresh")
     public Mono<SessionData> refreshSession(@RequestBody RefreshSessionRequest request) {
+        log.info("refreshSession - Refreshing session using request: {}", request.toString());
+
         SaltEdgeRequest seRequest = toRefreshSaltEdgeSession
                 .mapTo(request)
                 .map(SaltEdgeRequest::new)
