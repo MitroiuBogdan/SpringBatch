@@ -30,7 +30,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     public Mono<SessionData> createSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECT_PATH+"/create")
+                        .path(SALTEDGE_CONNECT_PATH + "/create")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
@@ -42,7 +42,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     public Mono<SessionData> refreshSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECT_PATH+"/refresh")
+                        .path(SALTEDGE_CONNECT_PATH + "/refresh")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
@@ -54,7 +54,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     public Mono<SessionData> reconnectSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECT_PATH+"/reconnect")
+                        .path(SALTEDGE_CONNECT_PATH + "/reconnect")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
@@ -64,20 +64,31 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
 
 
     @Override
-    public Flux<SaltedgeAccount> getAccounts() {
-//++apiCall
-        return webClient.get().uri(uriBuilder -> uriBuilder.path(SALTEDGE_ACCOUNT_PATH)
-                        .queryParam("connection_id", "785075132128303256").build())
+    public Flux<SaltedgeAccount> getAccounts(String connectionId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_ACCOUNT_PATH)
+                        .queryParam("connection_id", connectionId).build())
                 .retrieve()
                 .bodyToMono(SaltedgeAccountResponse.class)
                 .flatMapMany(ResponseHelper::getFluxFromData);
     }
 
     @Override
-    public Flux<SaltedgeTransaction> getTransactions() {
+    public Flux<SaltedgeTransaction> getTransactions(String connectionId) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder.path(SALTEDGE_TRASACTION_PATH)
-                        .queryParam("connection_id", "785075132128303256").build())
+                        .queryParam("connection_id", connectionId).build())
+                .retrieve().bodyToMono(SaltedgeTransactionResponse.class)
+                .flatMapMany(ResponseHelper::getFluxFromData);
+    }
+
+    @Override
+    public Flux<SaltedgeTransaction> getTransactionsByAccountId(String connectionId, String accountId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_TRASACTION_PATH)
+                        .queryParam("connection_id", connectionId)
+                        .queryParam("account_id", accountId)
+                        .build())
                 .retrieve().bodyToMono(SaltedgeTransactionResponse.class)
                 .flatMapMany(ResponseHelper::getFluxFromData);
     }

@@ -22,18 +22,18 @@ public class AccountController {
     private final AccountDelegatingService accountDelegatingService;
 
     @GetMapping
-    public Flux<Account> getAccounts(Vendor vendor) {
+    public Flux<Account> getAccounts(Vendor vendor, String connectionId) {
         log.info("Getting accounts:");
 
-        return accountDelegatingService.getAccounts(Vendor.SALTEDGE)
+        return accountDelegatingService.getAccounts(vendor, connectionId)
                 .doOnNext(acc -> log.info(buildLogMessage(acc)));
 
     }
 
     @GetMapping(path = "/{accountId}")
     public Mono<Account> getAccount(Vendor vendor, @PathVariable String accountId) {
-        log.info("Getting account with id: "+ accountId);
-        return accountDelegatingService.getAccount(vendor,accountId)
+        log.info("Getting account with id: " + accountId);
+        return accountDelegatingService.getAccount(vendor, accountId)
                 .doOnNext(tx -> log.info(buildLogMessage(tx)));
     }
 

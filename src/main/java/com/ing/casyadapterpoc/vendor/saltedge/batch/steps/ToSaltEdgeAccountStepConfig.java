@@ -1,5 +1,8 @@
 package com.ing.casyadapterpoc.vendor.saltedge.batch.steps;
 
+import com.ing.casyadapterpoc.common.domain.Vendor;
+import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
+import com.ing.casyadapterpoc.common.service.AccountDelegatingService;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.RefreshJobContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Slf4j
 @Configuration
 @AllArgsConstructor
@@ -17,6 +22,7 @@ public class ToSaltEdgeAccountStepConfig {
 
     RefreshJobContext context;
     StepBuilderFactory stepBuilderFactory;
+    AccountDelegatingService accountDelegatingService;
 
     @JobScope
     @Bean(name = "toSaltEdgeAccountStep")
@@ -25,12 +31,11 @@ public class ToSaltEdgeAccountStepConfig {
         return stepBuilderFactory
                 .get("toSaltEdgeAccountStep")
                 .tasklet((contribution, chunkContext) -> {
-
-                            log.info("FETCH OF ACCOUNTS HAVE STARTED");
-                            //TODO: Take accounts from SaltEdge based on connection_id
-                            //TODO: Add account ids in RefreshJobContext
-                            //TODO: Map SaltEdgeAccount to Account
-                            //TODO: Write Account to file
+                    log.info("toSaltEdgeAccountStep - Start fetching accounts for connectionId: {}", connectionId);
+                            List<Account> accountList = accountDelegatingService.getAccounts(Vendor.SALTEDGE, connectionId)
+                                    .collectList()
+                                    .block();
+                            accountList.forEach(account -> log.info("Account:[{}]", account.toString()));
                             return null;
                         }
                 ).build();

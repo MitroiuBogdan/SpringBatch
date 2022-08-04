@@ -11,16 +11,17 @@ import reactor.core.publisher.Mono;
 
 import static com.ing.casyadapterpoc.common.domain.Vendor.SALTEDGE;
 import static com.ing.casyadapterpoc.vendor.saltedge.mapper.SaltedgeTransactionMapper.SALTEDGE_TX_MAPPER;
+
 @AllArgsConstructor
 @Service
-public class  SaltedgeTransactionService implements TransactionVendorService {
+public class SaltedgeTransactionService implements TransactionVendorService {
 
     private final SaltEdgeClientImpl saltEdgeClient;
 
     @Override
-    public Flux<Transaction> getTransactions() {
+    public Flux<Transaction> getTransactions(String connectionId) {
 
-        return saltEdgeClient.getTransactions()
+        return saltEdgeClient.getTransactions(connectionId)
                 .map(SALTEDGE_TX_MAPPER);
     }
 

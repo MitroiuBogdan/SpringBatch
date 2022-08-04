@@ -22,18 +22,18 @@ public class TransactionController {
     private final TransactionDelegatingService transactionDelegatingService;
 
     @GetMapping
-    public Flux<Transaction> getTransactions(Vendor vendor) {
+    public Flux<Transaction> getTransactions(Vendor vendor, String connectionId) {
         log.info("Getting transactions:");
 
-        return transactionDelegatingService.getTransactions(Vendor.SALTEDGE)
+        return transactionDelegatingService.getTransactions(vendor, connectionId)
                 .doOnNext(tx -> log.info(buildLogMessage(tx)));
 
     }
 
     @GetMapping(path = "/{accountId}")
     public Mono<Transaction> getTransaction(Vendor vendor, @PathVariable String accountId) {
-        log.info("Getting transaction with id: "+ accountId);
-        return transactionDelegatingService.getTransaction(vendor,accountId)
+        log.info("Getting transaction with id: " + accountId);
+        return transactionDelegatingService.getTransaction(vendor, accountId)
                 .doOnNext(tx -> log.info(buildLogMessage(tx)));
     }
 

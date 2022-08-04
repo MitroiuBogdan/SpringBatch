@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono;
 public interface TransactionVendorService extends VendorService{
 
 
-    Flux<Transaction> getTransactions();
+    Flux<Transaction> getTransactions(String connectionId);
     Mono<Transaction> getTransaction(String transactionId);
 }

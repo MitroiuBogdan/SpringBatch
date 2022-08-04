@@ -1,11 +1,15 @@
 package com.ing.casyadapterpoc.vendor.saltedge.batch.steps;
 
+import com.ing.casyadapterpoc.common.domain.Vendor;
+import com.ing.casyadapterpoc.common.domain.casy_entity.Transaction;
+import com.ing.casyadapterpoc.common.service.TransactionDelegatingService;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.RefreshJobContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,21 +22,19 @@ public class ToSaltEdgeTransactionStepConfig {
 
     RefreshJobContext context;
     StepBuilderFactory stepBuilderFactory;
+    TransactionDelegatingService transactionDelegatingService;
 
     @JobScope
     @Bean(name = "toSaltEdgeTransactionStep")
-    public Step toSaltEdgeTransactionStep() {
+    public Step toSaltEdgeTransactionStep(@Value("#{jobParameters['connectionId']}") String connectionId) {
         return stepBuilderFactory
                 .get("toSaltEdgeTransactionStep")
                 .tasklet((contribution, chunkContext) -> {
-
-                            log.info("FETCH OF TRANSACTIONS HAVE STARTED");
-                            List<String> accountIds = context.getAccountIdList();
-                            accountIds.stream().forEach(accountId -> {
-                                //TODO: Take transaction from SaltEdge based on accounts id
-                                //TODO: Map to saltEdgeTrx to trx
-                                //TODO: Write trx to file
-                            });
+                            log.info("toSaltEdgeTransactionStep - Start fetching transaction for connectionId: {}", connectionId);
+                            List<Transaction> transactionList = transactionDelegatingService.getTransactions(Vendor.SALTEDGE, connectionId)
+                                    .collectList()
+                                    .block();
+                            transactionList.forEach(transaction -> log.info("Transaction: [{}]", transaction.toString()));
                             return null;
                         }
                 ).build();

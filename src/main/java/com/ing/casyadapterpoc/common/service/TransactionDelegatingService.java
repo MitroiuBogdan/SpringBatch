@@ -14,13 +14,13 @@ import java.util.List;
 public class TransactionDelegatingService {
     List<TransactionVendorService> transactionVendorServices;
 
-    public Flux<Transaction> getTransactions(Vendor vendor){
-        return VendorServiceSelector.selectVendorService(transactionVendorServices,vendor)
-                .getTransactions();
+    public Flux<Transaction> getTransactions(Vendor vendor, String connectionId) {
+        return VendorServiceSelector.selectVendorService(transactionVendorServices, vendor)
+                .getTransactions(connectionId);
     }
 
-    public Mono<Transaction> getTransaction(Vendor vendor, String accountId){
-        return VendorServiceSelector.selectVendorService(transactionVendorServices,vendor)
+    public Mono<Transaction> getTransaction(Vendor vendor, String accountId) {
+        return VendorServiceSelector.selectVendorService(transactionVendorServices, vendor)
                 .getTransaction(accountId);
     }
 

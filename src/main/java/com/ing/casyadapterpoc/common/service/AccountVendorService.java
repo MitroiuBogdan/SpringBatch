@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface AccountVendorService extends VendorService{
 
-    Flux<Account> getAccounts();
+    Flux<Account> getAccounts(String connectionId);
 
     Mono<Account> getAccount(String accountId);
 }
