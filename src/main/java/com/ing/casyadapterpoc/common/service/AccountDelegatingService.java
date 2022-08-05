@@ -14,14 +14,14 @@ import java.util.List;
 public class AccountDelegatingService {
     private final List<AccountVendorService> accountVendorServices;
 
-    public Flux<Account> getAccounts(Vendor vendor){
+    public Flux<Account> getAccounts(Vendor vendor, String providerGrantId) {
         // ++attempts
-        return VendorServiceSelector.selectVendorService(accountVendorServices,vendor)
-                .getAccounts();
+        return VendorServiceSelector.selectVendorService(accountVendorServices, vendor)
+                .getAccounts(providerGrantId);
     }
 
-    public Mono<Account> getAccount(Vendor vendor, String accountId){
-        return VendorServiceSelector.selectVendorService(accountVendorServices,vendor)
+    public Mono<Account> getAccount(Vendor vendor, String accountId) {
+        return VendorServiceSelector.selectVendorService(accountVendorServices, vendor)
                 .getAccount(accountId);
 
     }

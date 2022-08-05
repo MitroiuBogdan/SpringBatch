@@ -31,7 +31,7 @@ public class MappersTest {
                 .providerUserId("providerUserId")
                 .providerCode("providerCode")
                 .dailyRefresh(true)
-                .scopes(List.of(FetchDataScope.ACCOUNTS.getScopeValue(), FetchDataScope.TRANSACTIONS.getScopeValue()))
+                .scopes(List.of(FetchDataScope.ACCOUNTS.value(), FetchDataScope.TRANSACTIONS.value()))
                 .build();
 
         CreateSessionRequestSaltEdge request = toSaltEdgeCreateSessionRequest
@@ -69,7 +69,7 @@ public class MappersTest {
                 .providerUserId("providerUserId")
                 .providerCode("providerCode")
                 .dailyRefresh(true)
-                .scopes(List.of(FetchDataScope.ACCOUNTS.getScopeValue(), FetchDataScope.TRANSACTIONS.getScopeValue()))
+                .scopes(List.of(FetchDataScope.ACCOUNTS.value(), FetchDataScope.TRANSACTIONS.value()))
                 .build();
 
         ReconnectSessionRequestSaltEdge request = toSaltEdgeReconnectSessionRequest

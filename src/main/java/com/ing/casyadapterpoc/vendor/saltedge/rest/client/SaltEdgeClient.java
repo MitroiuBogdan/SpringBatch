@@ -25,9 +25,8 @@ public interface SaltEdgeClient {
 
 //    Aggregation
 
-    Flux<SaltedgeAccount> getAccounts();
+    Flux<SaltedgeAccount> getAccounts(String connectionId);
 
-    Flux<SaltedgeTransaction> getTransactions();
-
+    Flux<SaltedgeTransaction> getTransactions(String connectionId, String accountId);
 
 }

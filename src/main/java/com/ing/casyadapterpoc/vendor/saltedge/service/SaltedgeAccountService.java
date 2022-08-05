@@ -22,8 +22,8 @@ public class SaltedgeAccountService implements AccountVendorService {
         return VENDOR.equals(vendor);
     }
 
-    public Flux<Account> getAccounts(){
-        return saltEdgeClient.getAccounts()
+    public Flux<Account> getAccounts(String connectionId) {
+        return saltEdgeClient.getAccounts(connectionId)
                 .map(SaltedgeAccountMapper.SALTEDGE_ACCOUNT_MAPPER);
     }
 

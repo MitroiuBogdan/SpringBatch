@@ -5,10 +5,8 @@ import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.service.TransactionDelegatingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -16,25 +14,27 @@ import static com.ing.casyadapterpoc.common.logging.LoggingHelper.buildLogMessag
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("transactions")
-@Log
+@RequestMapping("casypoc")
+@Slf4j
 public class TransactionController {
     private final TransactionDelegatingService transactionDelegatingService;
 
-    @GetMapping
-    public Flux<Transaction> getTransactions(Vendor vendor) {
-        log.info("Getting transactions:");
+    @GetMapping({"{vendor}/{providerGrantId}/transactions"})
+    public Flux<Transaction> getTransactions(@PathVariable Vendor vendor,
+                                             @PathVariable String providerGrantId,
+                                             @RequestParam(required = false) String providerAccountId) {
+        log.info("Getting transactions for vendor: {}, providerGrantId: {}, providerAccountId: {}", vendor.name(), providerGrantId, providerAccountId);
 
-        return transactionDelegatingService.getTransactions(Vendor.SALTEDGE)
+        return transactionDelegatingService.getTransactions(vendor, providerGrantId, providerAccountId)
                 .doOnNext(tx -> log.info(buildLogMessage(tx)));
 
     }
 
-    @GetMapping(path = "/{accountId}")
-    public Mono<Transaction> getTransaction(Vendor vendor, @PathVariable String accountId) {
-        log.info("Getting transaction with id: "+ accountId);
-        return transactionDelegatingService.getTransaction(vendor,accountId)
-                .doOnNext(tx -> log.info(buildLogMessage(tx)));
-    }
+//    @GetMapping(path = "/{accountId}")
+//    public Mono<Transaction> getTransaction(Vendor vendor, @PathVariable String accountId) {
+//        log.info("Getting transaction with id: " + accountId);
+//        return transactionDelegatingService.getTransaction(vendor, accountId)
+//                .doOnNext(tx -> log.info(buildLogMessage(tx)));
+//    }
 
 }
