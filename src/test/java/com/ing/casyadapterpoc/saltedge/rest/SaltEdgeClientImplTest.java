@@ -10,7 +10,6 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.enums.FetchDataScope;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
