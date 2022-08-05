@@ -1,14 +1,18 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequestDataSaltEdge;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccount;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccountResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransaction;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransactionResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
 import com.ing.casyadapterpoc.vendor.saltedge.utils.ResponseHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -26,6 +30,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private static final String SALTEDGE_ACCOUNT_PATH = "v5/accounts";
     private static final String SALTEDGE_TRASACTION_PATH = "v5/transactions";
     private static final String SALTEDGE_CONNECT_PATH = "v5/connect_sessions";
+    private static final String SALTEDGE_OAUTH_PATH = "/v5/oauth_providers";
 
     private final WebClient webClient;
 
@@ -63,6 +68,17 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                 .retrieve()
                 .bodyToMono(SessionResponse.class)
                 .map(SessionResponse::getData);
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<CreateOauthConnectionSaltEdgeResponseData>> createOauthConnection(SaltEdgeRequest<CreateOauthConnectionRequestDataSaltEdge> requestBody) {
+        return webClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_OAUTH_PATH+"/create")
+                        .build())
+                .body(fromValue(requestBody))
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<CreateOauthConnectionSaltEdgeResponseData>>() {});
     }
 
 
