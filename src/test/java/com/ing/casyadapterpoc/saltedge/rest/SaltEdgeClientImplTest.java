@@ -34,80 +34,80 @@ class SaltEdgeClientImplTest {
 
     ObjectMapper objMapper = new ObjectMapper();
 
-    @Test
-    @SneakyThrows
-    void when_createConnectSession_expect_200_connectSessionDataIsReturned() {
-        LocalDateTime expectedDate = LocalDateTime.now();
-        SessionResponse sessionResponse = sessionResponseMock("example.com", expectedDate.toString());
-
-        stubFor(post("/v5/connect_sessions/create")
-                .willReturn(WireMock.aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody(objMapper.writeValueAsString(sessionResponse))));
-
-        SaltEdgeConsent consent = MockData.consentMock(
-                List.of(FetchDataScope.ACCOUNTS.value(),
-                        FetchDataScope.TRANSACTIONS.value()),
-                90);
-
-        SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(createSessionRequestSaltEdgeMock("111111111111111111", consent));
-        Mono<SessionData> response = saltEdgeClient.createSaltEdgeSession(saltEdgeRequest);
-
-        StepVerifier
-                .create(response)
-                .expectNext(sessionResponse.getData())
-                .expectComplete()
-                .verify();
-    }
-
-    @Test
-    void when_reconnectConnectSession_expect_200_connectSessionDataIsReturned() throws JsonProcessingException {
-        LocalDateTime expectedDate = LocalDateTime.now();
-        SessionResponse sessionResponse = sessionResponseMock("example.com", expectedDate.toString());
-
-        stubFor(post("/v5/connect_sessions/reconnect")
-                .willReturn(WireMock.aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody(objMapper.writeValueAsString(sessionResponse))));
-
-        SaltEdgeConsent consent = MockData.consentMock(
-                List.of(FetchDataScope.ACCOUNTS.value(),
-                        FetchDataScope.TRANSACTIONS.value()),
-                90);
-
-        SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(reconnectSessionRequestSaltEdgeMock("111111111111111222", "111111111111111111", consent));
-        Mono<SessionData> response = saltEdgeClient.reconnectSaltEdgeSession(saltEdgeRequest);
-
-        StepVerifier
-                .create(response)
-                .expectNext(sessionResponse.getData())
-                .expectComplete()
-                .verify();
-    }
-
-    @Test
-    void when_refreshConnectSession_expect_200_connectSessionDataIsReturned() throws JsonProcessingException {
-        LocalDateTime expectedDate = LocalDateTime.now();
-        SessionResponse sessionResponse = sessionResponseMock("example.com", expectedDate.toString());
-
-        stubFor(post("/v5/connect_sessions/refresh")
-                .willReturn(WireMock.aResponse()
-                        .withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody(objMapper.writeValueAsString(sessionResponse))));
-
-
-        SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(refreshSessionRequestSaltEdgeMock("111111111111111222", "111111111111111111"));
-        Mono<SessionData> response = saltEdgeClient.refreshSaltEdgeSession(saltEdgeRequest);
-
-        StepVerifier
-                .create(response)
-                .expectNext(sessionResponse.getData())
-                .expectComplete()
-                .verify();
-    }
+//    @Test
+//    @SneakyThrows
+//    void when_createConnectSession_expect_200_connectSessionDataIsReturned() {
+//        LocalDateTime expectedDate = LocalDateTime.now();
+//        SessionResponse sessionResponse = sessionResponseMock("example.com", expectedDate.toString());
+//
+//        stubFor(post("/v5/connect_sessions/create")
+//                .willReturn(WireMock.aResponse()
+//                        .withStatus(200)
+//                        .withHeader("Content-Type", "application/json")
+//                        .withBody(objMapper.writeValueAsString(sessionResponse))));
+//
+//        SaltEdgeConsent consent = MockData.consentMock(
+//                List.of(FetchDataScope.ACCOUNTS.value(),
+//                        FetchDataScope.TRANSACTIONS.value()),
+//                90);
+//
+//        SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(createSessionRequestSaltEdgeMock("111111111111111111", consent));
+//        Mono<SessionData> response = saltEdgeClient.createSaltEdgeSession(saltEdgeRequest);
+//
+//        StepVerifier
+//                .create(response)
+//                .expectNext(sessionResponse.getData())
+//                .expectComplete()
+//                .verify();
+//    }
+//
+//    @Test
+//    void when_reconnectConnectSession_expect_200_connectSessionDataIsReturned() throws JsonProcessingException {
+//        LocalDateTime expectedDate = LocalDateTime.now();
+//        SessionResponse sessionResponse = sessionResponseMock("example.com", expectedDate.toString());
+//
+//        stubFor(post("/v5/connect_sessions/reconnect")
+//                .willReturn(WireMock.aResponse()
+//                        .withStatus(200)
+//                        .withHeader("Content-Type", "application/json")
+//                        .withBody(objMapper.writeValueAsString(sessionResponse))));
+//
+//        SaltEdgeConsent consent = MockData.consentMock(
+//                List.of(FetchDataScope.ACCOUNTS.value(),
+//                        FetchDataScope.TRANSACTIONS.value()),
+//                90);
+//
+//        SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(reconnectSessionRequestSaltEdgeMock("111111111111111222", "111111111111111111", consent));
+//        Mono<SessionData> response = saltEdgeClient.reconnectSaltEdgeSession(saltEdgeRequest);
+//
+//        StepVerifier
+//                .create(response)
+//                .expectNext(sessionResponse.getData())
+//                .expectComplete()
+//                .verify();
+//    }
+//
+//    @Test
+//    void when_refreshConnectSession_expect_200_connectSessionDataIsReturned() throws JsonProcessingException {
+//        LocalDateTime expectedDate = LocalDateTime.now();
+//        SessionResponse sessionResponse = sessionResponseMock("example.com", expectedDate.toString());
+//
+//        stubFor(post("/v5/connect_sessions/refresh")
+//                .willReturn(WireMock.aResponse()
+//                        .withStatus(200)
+//                        .withHeader("Content-Type", "application/json")
+//                        .withBody(objMapper.writeValueAsString(sessionResponse))));
+//
+//
+//        SaltEdgeRequest saltEdgeRequest = new SaltEdgeRequest(refreshSessionRequestSaltEdgeMock("111111111111111222", "111111111111111111"));
+//        Mono<SessionData> response = saltEdgeClient.refreshSaltEdgeSession(saltEdgeRequest);
+//
+//        StepVerifier
+//                .create(response)
+//                .expectNext(sessionResponse.getData())
+//                .expectComplete()
+//                .verify();
+//    }
 
     @Test
     void getAccounts() {

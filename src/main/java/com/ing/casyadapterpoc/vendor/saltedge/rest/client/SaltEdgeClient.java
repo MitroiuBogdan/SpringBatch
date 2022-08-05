@@ -12,19 +12,18 @@ import reactor.core.publisher.Mono;
 
 public interface SaltEdgeClient {
 
-    //    SaltEdge Connect
-    Mono<SessionData> createSaltEdgeSession(SaltEdgeRequest requestBody);
+    //SaltEdge Connect
+    Mono<SaltEdgeResponse<SessionData>> createSaltEdgeSession(SaltEdgeRequest requestBody);
 
-    Mono<SessionData> refreshSaltEdgeSession(SaltEdgeRequest requestBody);
+    Mono<SaltEdgeResponse<SessionData>> refreshSaltEdgeSession(SaltEdgeRequest requestBody);
 
-    Mono<SessionData> reconnectSaltEdgeSession(SaltEdgeRequest requestBody);
+    Mono<SaltEdgeResponse<SessionData>> reconnectSaltEdgeSession(SaltEdgeRequest requestBody);
 
 
     // Oauth connection
     Mono<SaltEdgeResponse<CreateOauthConnectionSaltEdgeResponseData>> createOauthConnection(SaltEdgeRequest<CreateOauthConnectionRequestDataSaltEdge> requestBody);
 
-//    Aggregation
-
+    //Aggregation
     Flux<SaltedgeAccount> getAccounts(String connectionId);
 
     Flux<SaltedgeTransaction> getTransactions(String connectionId, String accountId);
