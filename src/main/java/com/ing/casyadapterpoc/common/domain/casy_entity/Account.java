@@ -1,6 +1,7 @@
 package com.ing.casyadapterpoc.common.domain.casy_entity;
 
 import lombok.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,27 +14,28 @@ import java.util.List;
 @ToString
 public class Account {
 
-    private String providerAccountId;
-    private String lastRefreshTimestamp;
-    private String lastRefreshTimestampProvider;
-    private String iban;
-    private String bban;
-    private String bic;
-    private String clientId;
-    private String name;
-    private String product;
-    private String cashAccountType;
-    private String currency;
-    private String pan; //to be removed ???
-    private String maskedPan;
-    private String usage;
-    private String accountStatus;
-    private String linkedAccount;
-    private String accountHolderName;
-    private BigDecimal availableCredit;
-    private BigDecimal creditLimit;
-    private String aspspAccountId;
-    private String userId;
-    private List<String> balances = new ArrayList<>();
-    private transient String providerGrantId;
+    public String providerAccountId;
+    public String lastRefreshTimestamp;
+    public String lastRefreshTimestampProvider;
+    public String iban;
+    public String bban;
+    public String bic;
+    public Transaction transaction;
+    public String clientId;
+    public String name;
+    public String product;
+    public String cashAccountType;
+    public String currency;
+    public String pan; //to be removed ???
+    public String maskedPan;
+    public String usage;
+    public String accountStatus;
+    public String linkedAccount;
+    public String accountHolderName;
+    public BigDecimal availableCredit;
+    public BigDecimal creditLimit;
+    public String aspspAccountId;
+    public String userId;
+    public List<String> balances = new ArrayList<>();
+    public transient String providerGrantId;
 }
