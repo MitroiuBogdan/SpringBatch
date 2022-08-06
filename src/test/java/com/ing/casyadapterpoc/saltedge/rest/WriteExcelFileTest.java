@@ -1,55 +1,47 @@
 package com.ing.casyadapterpoc.saltedge.rest;
 
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
-import com.ing.casyadapterpoc.common.domain.casy_entity.Transaction;
 import com.ing.casyadapterpoc.common.file.WriteExcelFile;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 public class WriteExcelFileTest {
 
     WriteExcelFile excelFile;
+    final String path = "src/test/resources/";
 
     @BeforeEach
     void before() {
         excelFile = new WriteExcelFile();
     }
 
-    @Test
-    void test_writingFiles() throws IOException {
-//        String path = "src/test/resources/emptyFile.xls";
-//        excelFile.processFile(path);
-//        excelFile.addHeadersFromObject(Account.builder().build());
-//        excelFile.processFileSecondVersion();
-
-//        excelFile.processFileSecondVersion();
-    }
 
     @Test
     @SneakyThrows
-    void test_jsonToExcel_expect_ok() throws IOException {
+    void test_objArrayToExcel_expect_ok() throws IOException {
         Account account = mockAccount();
-
-//        excelFile.processFileSecondVersion(account);
-        excelFile.processLive(account,"supa.xls");
+        List<Account> accountList = Collections.nCopies(20, account);
+        excelFile.writeObjectsToXcel(accountList, path + "accounts-saltedge.xls");
 
     }
-
 
     public static Account mockAccount() {
         return Account.builder()
                 .name("accountName")
-                .currency("$USDE")
-                .transaction(Transaction
-                        .builder()
-                        .bookingDate("dsadsa")
-                        .endToEndId("endToEndId")
-                        .status("ACCEPTED")
-                        .amount("10000000000$")
-                        .build())
+                .currency("$$$->USD")
+//                .transaction(Transaction
+//                        .builder()
+//                        .bookingDate("2001")
+//                        .endToEndId("endToEndId")
+//                        .status("ACCEPTED")
+//                        .amount("10000000000$")
+//                        .build())
+                .balances(List.of("CURRENT", "CREDIT"))
                 .aspspAccountId("bankId")
                 .clientId("clientId")
                 .build();

@@ -20,7 +20,6 @@ public class Account {
     public String iban;
     public String bban;
     public String bic;
-    public Transaction transaction;
     public String clientId;
     public String name;
     public String product;
