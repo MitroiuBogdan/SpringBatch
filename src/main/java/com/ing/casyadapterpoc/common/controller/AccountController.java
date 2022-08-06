@@ -30,14 +30,7 @@ public class AccountController {
         log.info("Getting accounts for vendor: {}, providerGrantId: {}", vendor.name(), providerGrantId);
 
         return accountDelegatingService.getAccounts(vendor, providerGrantId)
-                .doOnNext(acc -> log.info(buildLogMessage(acc)))
-                .doOnNext(acc -> {
-                    try {
-                        writeExcelFile.processFileSecondVersion(acc);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+                .doOnNext(acc -> log.info(buildLogMessage(acc)));
 
     }
 
