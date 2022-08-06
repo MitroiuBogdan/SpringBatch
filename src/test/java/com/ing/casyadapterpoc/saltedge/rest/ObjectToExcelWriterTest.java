@@ -1,7 +1,7 @@
 package com.ing.casyadapterpoc.saltedge.rest;
 
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
-import com.ing.casyadapterpoc.common.file.WriteExcelFile;
+import com.ing.casyadapterpoc.common.utils.ObjectToExcelWriter;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-public class WriteExcelFileTest {
+public class ObjectToExcelWriterTest {
 
-    WriteExcelFile excelFile;
+    ObjectToExcelWriter excelFile;
     final String path = "src/test/resources/";
 
     @BeforeEach
     void before() {
-        excelFile = new WriteExcelFile();
+        excelFile = new ObjectToExcelWriter();
     }
 
 
@@ -26,7 +26,7 @@ public class WriteExcelFileTest {
     void test_objArrayToExcel_expect_ok() throws IOException {
         Account account = mockAccount();
         List<Account> accountList = Collections.nCopies(20, account);
-        excelFile.writeObjectsToXcel(accountList, path + "accounts-saltedge.xls");
+        excelFile.writeObjectsToExcelFile(accountList, path + "accounts-saltedge.xls");
 
     }
 

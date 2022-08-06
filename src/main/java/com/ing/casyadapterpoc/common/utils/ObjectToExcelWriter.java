@@ -1,10 +1,9 @@
-package com.ing.casyadapterpoc.common.file;
+package com.ing.casyadapterpoc.common.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.ing.casyadapterpoc.common.domain.Vendor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -17,17 +16,10 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class WriteExcelFile {
+public class ObjectToExcelWriter {
 
-    public static void processLive2(List<? extends Object> objList, String path) {
 
-    }
-
-    public static void processLive3(List<? extends Object> objList, Vendor vendor, boolean overrideFile) {
-
-    }
-
-    public static void writeObjectsToXcel(List<? extends Object> objList, String path) throws IOException {
+    public static void writeObjectsToExcelFile(List<? extends Object> objList, String path) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonStr = objectMapper.writeValueAsString(objList);
         Workbook workbook;
