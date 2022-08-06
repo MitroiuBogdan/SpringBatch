@@ -33,7 +33,8 @@ public class WriteExcelFileTest {
     void test_jsonToExcel_expect_ok() throws IOException {
         Account account = mockAccount();
 
-        excelFile.processJsonToXcel(account);
+//        excelFile.processFileSecondVersion(account);
+        excelFile.processLive(account);
 
     }
 
@@ -41,9 +42,10 @@ public class WriteExcelFileTest {
     public static Account mockAccount() {
         return Account.builder()
                 .name("accountName")
-                .currency("$USD")
+                .currency("$USDE")
                 .transaction(Transaction
                         .builder()
+                        .bookingDate("dsadsa")
                         .endToEndId("endToEndId")
                         .status("ACCEPTED")
                         .amount("10000000000$")
