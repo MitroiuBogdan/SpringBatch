@@ -26,7 +26,8 @@ public class ObjectToExcelWriterTest {
     void test_objArrayToExcel_expect_ok() throws IOException {
         Account account = mockAccount();
         List<Account> accountList = Collections.nCopies(20, account);
-        excelFile.writeObjectsToExcelFile(accountList, path + "accounts-saltedge.xls");
+//        excelFile.writeObjectsToExcelFile(accountList), path + "accounts-saltedge.xls");
+        excelFile.writeObjectToExcelFile(accountList.get(0), path + "accounts-saltedge.xls");
 
     }
 
