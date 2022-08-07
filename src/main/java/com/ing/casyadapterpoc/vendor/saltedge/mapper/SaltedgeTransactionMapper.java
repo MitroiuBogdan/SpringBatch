@@ -1,5 +1,8 @@
 package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
+import com.ing.casyadapterpoc.common.domain.casy_entity.Amount;
+import com.ing.casyadapterpoc.common.domain.casy_entity.ExchangeRate;
+import com.ing.casyadapterpoc.common.domain.casy_entity.Merchant;
 import com.ing.casyadapterpoc.common.domain.casy_entity.Transaction;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransaction;
 import lombok.AccessLevel;
@@ -15,16 +18,28 @@ public class SaltedgeTransactionMapper implements Function<SaltedgeTransaction, 
     @Override
     public Transaction apply(SaltedgeTransaction saltedgeTransaction) {
         return Transaction.builder()
-                .bookingDate(saltedgeTransaction.getMade_on())
-                .amount(saltedgeTransaction.getAmount().toString())
-                .debtorName(saltedgeTransaction.getExtra().getPayee())
-                .endToEndId(saltedgeTransaction.getExtra().getEnd_to_end_id())
-                .status(saltedgeTransaction.getStatus())
-                .providerAccountId(saltedgeTransaction.getId())
-                .externalId(saltedgeTransaction.getAccount_id())
-                .transactionType(saltedgeTransaction.getCategory())
-                .valueDate(saltedgeTransaction.getExtra().getPosting_date())
+                .providerTransactionId(saltedgeTransaction.getId())
+                .transactionType(saltedgeTransaction.getStatus())
+                .transactionDate(saltedgeTransaction.getMade_on())
+                .amount(Amount.builder()
+                        .content(saltedgeTransaction.getAmount())
+                        .currency(saltedgeTransaction.getCurrency_code())
+                        .build())
                 .remittanceInformationUnstructured(saltedgeTransaction.getDescription())
+                .providerAccountId(saltedgeTransaction.getAccount_id())
+                .endToEndId(saltedgeTransaction.getExtra().getEnd_to_end_id())
+                .externalId(saltedgeTransaction.getExtra().getId())
+                .creditorName(saltedgeTransaction.getExtra().getPayee_information())
+                .debtorName(saltedgeTransaction.getExtra().getPayer_information())
+                .creditor(Merchant.builder()
+                        .iban(saltedgeTransaction.getExtra().getPayee())
+                        .build())
+                .debtor(Merchant.builder()
+                        .iban(saltedgeTransaction.getExtra().getPayer())
+                        .build())
+                .exchangeRate(ExchangeRate.builder()
+                        .rate(saltedgeTransaction.getExtra().getExchange_rate())
+                        .build())
                 .build();
     }
 }
