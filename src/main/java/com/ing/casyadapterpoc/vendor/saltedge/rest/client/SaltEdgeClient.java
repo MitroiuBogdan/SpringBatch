@@ -1,8 +1,10 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequestDataSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeConnection;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccount;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransaction;
@@ -28,5 +30,7 @@ public interface SaltEdgeClient {
     Flux<SaltedgeAccount> getAccounts(String connectionId);
 
     Flux<SaltedgeTransaction> getTransactions(String connectionId, String accountId);
+
+    Mono<SaltEdgeResponse<SaltedgeConnection>> refreshConnectionById(String connectionId, SaltEdgeRequest<SaltEdgeAttempt> requestBody);
 
 }
