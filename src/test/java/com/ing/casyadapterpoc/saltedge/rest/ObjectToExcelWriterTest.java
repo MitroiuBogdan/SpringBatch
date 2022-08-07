@@ -34,7 +34,7 @@ public class ObjectToExcelWriterTest {
     public static Account mockAccount() {
         return Account.builder()
                 .name("accountName")
-                .currency("$$$->USD")
+//                .currency("$$$->USD")
 //                .transaction(Transaction
 //                        .builder()
 //                        .bookingDate("2001")
@@ -42,9 +42,9 @@ public class ObjectToExcelWriterTest {
 //                        .status("ACCEPTED")
 //                        .amount("10000000000$")
 //                        .build())
-                .balances(List.of("CURRENT", "CREDIT"))
-                .aspspAccountId("bankId")
-                .clientId("clientId")
+//                .balances(List.of("CURRENT", "CREDIT"))
+//                .aspspAccountId("bankId")
+//                .clientId("clientId")
                 .build();
     }
 }
