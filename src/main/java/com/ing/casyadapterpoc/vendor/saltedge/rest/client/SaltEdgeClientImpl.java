@@ -16,8 +16,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Optional;
-
 import static java.util.Optional.ofNullable;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
@@ -111,6 +109,16 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                 .body(fromValue(requestBody))
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<SaltedgeDeleteResponse>> deleteConnectionById(String connectionId) {
+        return webClient.delete()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CONNECTIONS_PATH+"/" + connectionId)
+                        .build())
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeDeleteResponse>>() {});
     }
 
 }
