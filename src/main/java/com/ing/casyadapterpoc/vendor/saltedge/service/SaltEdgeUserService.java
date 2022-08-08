@@ -9,7 +9,9 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.CreateCustomer
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
@@ -38,7 +40,20 @@ public class SaltEdgeUserService implements UserVendorService {
     }
 
     @Override
-    public Mono<Void> deleteUser(String userId) {
-        return null;
+    public Mono<ResponseEntity<Void>> deleteUser(String userId) {
+        return saltEdgeClient.deleteCustomer(userId);
+    }
+
+    @Override
+    public Flux<User> getUsers() {
+        return saltEdgeClient.getAllCustomers()
+                .map(SaltedgeUserMapper.SALTEDGE_USER_MAPPER);
+    }
+
+    @Override
+    public Mono<User> getUserById(String userId) {
+        return saltEdgeClient.getCustomerById(userId)
+                .map(SaltEdgeResponse::getData)
+                .map(SaltedgeUserMapper.SALTEDGE_USER_MAPPER);
     }
 }

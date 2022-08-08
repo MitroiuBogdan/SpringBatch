@@ -16,6 +16,7 @@ public class SaltedgeUserMapper implements Function<SaltEdgeCustomer, User> {
     public User apply(SaltEdgeCustomer saltEdgeCustomerData) {
         return User.builder()
                 .id(saltEdgeCustomerData.getId())
+                .identifier(saltEdgeCustomerData.getIdentifier())
                 .build();
     }
 }

@@ -8,6 +8,7 @@ import lombok.*;
 @Data
 @ToString
 public class User {
-    
+
     String id;
+    String identifier;
 }

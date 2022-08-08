@@ -7,8 +7,11 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeRespo
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
+import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 public interface SaltEdgeClient {
 
@@ -33,4 +36,10 @@ public interface SaltEdgeClient {
     Mono<SaltEdgeResponse<SaltedgeDeleteResponse>> deleteConnectionById(String connectionId);
 
     Mono<SaltEdgeResponse<SaltEdgeCustomer>> createCustomer(SaltEdgeRequest requestBody);
+
+    Mono<ResponseEntity<Void>> deleteCustomer(String userId);
+
+    Flux<SaltEdgeCustomer> getAllCustomers();
+
+    Mono<SaltEdgeResponse<SaltEdgeCustomer>> getCustomerById(String userId);
 }
