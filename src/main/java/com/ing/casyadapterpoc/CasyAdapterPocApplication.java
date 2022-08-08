@@ -1,5 +1,6 @@
 package com.ing.casyadapterpoc;
 
+import com.ing.casyadapterpoc.common.properties.CommonProperties;
 import com.ing.casyadapterpoc.vendor.saltedge.properties.SaltEdgeClientProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +9,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableConfigurationProperties({SaltEdgeClientProperties.class})
+@EnableConfigurationProperties({SaltEdgeClientProperties.class, CommonProperties.class})
 public class CasyAdapterPocApplication {
 
     public static void main(String[] args) {

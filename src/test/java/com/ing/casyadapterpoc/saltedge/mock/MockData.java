@@ -5,22 +5,12 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.Create
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.RefreshSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface MockData {
 
-    static SessionResponse sessionResponseMock(String connectionUrl, String date) {
-        return SessionResponse.builder()
-                .data(
-                        SessionData.builder()
-                                .connectUrl(connectionUrl)
-                                .expiresAt(date)
-                                .build())
-                .build();
-    }
 
     static CreateSessionRequestSaltEdge createSessionRequestSaltEdgeMock(String customerId, SaltEdgeConsent consent) {
         return CreateSessionRequestSaltEdge.builder()

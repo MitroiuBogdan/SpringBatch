@@ -2,8 +2,6 @@ package com.ing.casyadapterpoc.common.domain.casy_entity;
 
 import lombok.*;
 
-import java.util.List;
-
 @Builder
 @ToString
 @NoArgsConstructor
@@ -11,22 +9,24 @@ import java.util.List;
 @Getter
 @Setter
 public class Transaction {
+    //These are all the fields consumed from Yolt and sent by YoltAdapter to CasyAPI
 
     private String providerTransactionId;
-    private String transactionType;
-    private String bookingDate;
-    private String valueDate;
-    private String transactionDate;
-    private String creditorName;
     private String providerAccountId;
-    private String debtorName;
+    private String transactionType;
+    private String transactionDate;
+    private Amount amount;
     private String remittanceInformationUnstructured;
-    private String purposeCode;
-    private String bankTransactionCode;
     private String externalId;
     private String endToEndId;
-    private String status;
-    private String amount;
-    private List<String> exchangeRates;
+    private ExchangeRate exchangeRate;
+    private String creditorName;
+    private String debtorName;
+    private Merchant creditor;
+    private Merchant debtor;
+    private String bankTransactionCode;
+    private String bookingDate;
+    private String purposeCode;
+    private String valueDate;
 
 }

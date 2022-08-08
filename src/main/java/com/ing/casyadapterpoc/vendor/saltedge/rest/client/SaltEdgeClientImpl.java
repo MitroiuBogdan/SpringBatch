@@ -6,7 +6,6 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOa
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
 import com.ing.casyadapterpoc.vendor.saltedge.utils.ResponseHelper;
 import lombok.RequiredArgsConstructor;
@@ -32,50 +31,51 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private final WebClient webClient;
 
     @Override
-    public Mono<SessionData> createSaltEdgeSession(SaltEdgeRequest requestBody) {
+    public Mono<SaltEdgeResponse<SessionData>> createSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path(SALTEDGE_CONNECT_PATH + "/create")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(SessionResponse.class)
-                .map(SessionResponse::getData);
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SessionData>>() {
+                });
     }
 
     @Override
-    public Mono<SessionData> refreshSaltEdgeSession(SaltEdgeRequest requestBody) {
+    public Mono<SaltEdgeResponse<SessionData>> refreshSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path(SALTEDGE_CONNECT_PATH + "/refresh")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(SessionResponse.class)
-                .map(SessionResponse::getData);
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SessionData>>() {
+                });
     }
 
     @Override
-    public Mono<SessionData> reconnectSaltEdgeSession(SaltEdgeRequest requestBody) {
+    public Mono<SaltEdgeResponse<SessionData>> reconnectSaltEdgeSession(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .path(SALTEDGE_CONNECT_PATH + "/reconnect")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(SessionResponse.class)
-                .map(SessionResponse::getData);
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SessionData>>() {
+                });
     }
 
     @Override
     public Mono<SaltEdgeResponse<CreateOauthConnectionSaltEdgeResponseData>> createOauthConnection(SaltEdgeRequest<CreateOauthConnectionRequestDataSaltEdge> requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_OAUTH_PATH+"/create")
+                        .path(SALTEDGE_OAUTH_PATH + "/create")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<CreateOauthConnectionSaltEdgeResponseData>>() {});
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<CreateOauthConnectionSaltEdgeResponseData>>() {
+                });
     }
 
 

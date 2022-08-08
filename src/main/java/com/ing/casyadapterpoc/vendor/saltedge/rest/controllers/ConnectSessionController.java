@@ -6,9 +6,8 @@ import com.ing.casyadapterpoc.vendor.saltedge.mapper.ReconnectSessionToSaltEdgeS
 import com.ing.casyadapterpoc.vendor.saltedge.mapper.RefreshSessionToSaltEdgeSessionMapper;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.RefreshSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.*;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +37,8 @@ public class ConnectSessionController {
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
 
-        return saltEdgeClient.createSaltEdgeSession(seRequest);
+        return saltEdgeClient.createSaltEdgeSession(seRequest)
+                .map(SaltEdgeResponse::getData);
     }
 
     @PostMapping("/reconnect")
@@ -50,7 +50,8 @@ public class ConnectSessionController {
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
 
-        return saltEdgeClient.reconnectSaltEdgeSession(seRequest);
+        return saltEdgeClient.reconnectSaltEdgeSession(seRequest)
+                .map(SaltEdgeResponse::getData);
 
     }
 
@@ -63,7 +64,8 @@ public class ConnectSessionController {
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
 
-        return saltEdgeClient.refreshSaltEdgeSession(seRequest);
+        return saltEdgeClient.refreshSaltEdgeSession(seRequest)
+                .map(SaltEdgeResponse::getData);
     }
 
 }

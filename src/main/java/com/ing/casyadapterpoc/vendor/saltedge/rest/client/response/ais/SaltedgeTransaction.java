@@ -2,8 +2,6 @@ package com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais;
 
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,7 +15,7 @@ public class SaltedgeTransaction {
     private String mode;
     private String status;
     private String made_on;
-    private BigDecimal amount;
+    private Double amount;
     private String currency_code;
     private String description;
     private String category;

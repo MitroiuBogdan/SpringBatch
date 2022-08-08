@@ -1,39 +1,32 @@
 package com.ing.casyadapterpoc.common.domain.casy_entity;
 
 import lombok.*;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 @ToString
 public class Account {
+//These are all the fields consumed from Yolt and sent by YoltAdapter to CasyAPI
 
     private String providerAccountId;
-    private String lastRefreshTimestamp;
+    private String providerGrantId;
+    private String name;
+    private String accountHolderName;
+    private String accountStatus;
+    private String cashAccountType;
+    private Balance balance;
     private String lastRefreshTimestampProvider;
+    private Double availableCredit;
+    private Double creditLimit;
     private String iban;
     private String bban;
     private String bic;
-    private String clientId;
-    private String name;
-    private String product;
-    private String cashAccountType;
-    private String currency;
-    private String pan; //to be removed ???
-    private String maskedPan;
     private String usage;
-    private String accountStatus;
     private String linkedAccount;
-    private String accountHolderName;
-    private BigDecimal availableCredit;
-    private BigDecimal creditLimit;
-    private String aspspAccountId;
-    private String userId;
-    private List<String> balances = new ArrayList<>();
-    private transient String providerGrantId;
+    private String product;
+    private String maskedPan;
 }

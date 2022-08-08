@@ -1,11 +1,12 @@
 package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
+import com.ing.casyadapterpoc.common.domain.casy_entity.Balance;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccount;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import java.util.Collections;
+import java.math.BigDecimal;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -17,19 +18,20 @@ public class SaltedgeAccountMapper implements Function<SaltedgeAccount, Account>
     public Account apply(SaltedgeAccount saltedgeAccount) {
         return Account.builder()
                 .providerAccountId(saltedgeAccount.getId())
-                .bban(saltedgeAccount.getExtra().getBban())
+                .name(saltedgeAccount.getName())
+                .cashAccountType(saltedgeAccount.getNature())
+                .balance(Balance.builder()
+                        .content(saltedgeAccount.getBalance())
+                        .currency(saltedgeAccount.getCurrency_code())
+                        .build())
+                .providerGrantId(saltedgeAccount.getConnection_id())
+                .lastRefreshTimestampProvider(saltedgeAccount.getUpdated_at())
+                .availableCredit(saltedgeAccount.getExtra().getAvailable_amount())
+                .accountHolderName(saltedgeAccount.getExtra().getClient_name())
+                .creditLimit(saltedgeAccount.getExtra().getCredit_limit())
                 .iban(saltedgeAccount.getExtra().getIban())
-                .currency(saltedgeAccount.getCurrency_code())
-                .name(saltedgeAccount.getExtra().getAccount_name())
-                .aspspAccountId(saltedgeAccount.getName())
-                .balances(Collections.singletonList(saltedgeAccount.getBalance().toString()))
-                .lastRefreshTimestampProvider(buildLastRefreshProvider(saltedgeAccount))
+                .bban(saltedgeAccount.getExtra().getBban())
+                .accountStatus(saltedgeAccount.getExtra().getStatus())
                 .build();
-    }
-
-    private String buildLastRefreshProvider (SaltedgeAccount saltedgeAccount){
-        return saltedgeAccount.getExtra().getCurrent_date()
-                + ":"
-                + saltedgeAccount.getExtra().getCurrent_time();
     }
 }
