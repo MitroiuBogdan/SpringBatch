@@ -31,11 +31,4 @@ public class TransactionController {
 
     }
 
-//    @GetMapping(path = "/{accountId}")
-//    public Mono<Transaction> getTransaction(Vendor vendor, @PathVariable String accountId) {
-//        log.info("Getting transaction with id: " + accountId);
-//        return transactionDelegatingService.getTransaction(vendor, accountId)
-//                .doOnNext(tx -> log.info(buildLogMessage(tx)));
-//    }
-
 }
