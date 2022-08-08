@@ -67,11 +67,16 @@ public class ObjectToExcelWriter {
                 if (RowType.HEADER == rowType) {
                     String headerValue = constructHeaderValue(parentNodeName, field.getKey());
                     createCell(row, startCellIndex, headerValue);
-                    log.info("Creating header with - Index :{} - Key: {}, Value: {}", startCellIndex, field.getValue().toString());
+                    log.info("Creating header with - Index :{} - Key: {}, Value: {}", startCellIndex, field.getKey(), field.getValue().toString());
                 } else {
-                    String value = !isBlank(field.getValue().textValue()) ? field.getValue().textValue() : "null";
+                    String value;
+                    if (field.getValue().isDouble()) {
+                        value = field.getValue().toString();
+                    } else {
+                        value = !isBlank(field.getValue().textValue()) ? field.getValue().textValue() : "null";
+                    }
                     createCell(row, startCellIndex, value);
-                    log.info("Index :{} - Key: {}, Value: {}", startCellIndex, field.getValue());
+                    log.info("Index :{} - Key: {}, Value: {}", startCellIndex, field.getKey(),field.getValue());
                 }
                 startCellIndex++;
             }

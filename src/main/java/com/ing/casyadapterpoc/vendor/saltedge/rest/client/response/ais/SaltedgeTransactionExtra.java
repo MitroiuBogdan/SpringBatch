@@ -11,7 +11,7 @@ import java.util.List;
 @ToString
 public class SaltedgeTransactionExtra {
     private String account_balance_snapshot;
-    private Double account_number;
+    private String account_number;
     private String additional;
     private Double asset_amount;
     private String asset_code;
