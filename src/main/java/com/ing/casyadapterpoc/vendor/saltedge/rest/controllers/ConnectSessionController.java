@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/saltedge/connect-session")
+@RequestMapping("/SALTEDGE/session")
 public class ConnectSessionController {
 
     private final SaltEdgeClientImpl saltEdgeClient;
