@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -27,6 +28,6 @@ public class SaltEdgeConsent {
     String expirationDate;
 
     @JsonProperty("period_day")
-    Integer consentValidityDays;
+    Double consentValidityDays;
 
 }

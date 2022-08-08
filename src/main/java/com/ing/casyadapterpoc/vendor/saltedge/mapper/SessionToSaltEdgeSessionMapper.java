@@ -2,30 +2,31 @@ package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequestSaltEdge;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.ReconnectSessionRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.SessionRequestSaltEdge;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.SessionRequest;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @NoArgsConstructor
 @Component
-public class ReconnectSessionToSaltEdgeSessionMapper {
+public class SessionToSaltEdgeSessionMapper {
 
-    public Optional<ReconnectSessionRequestSaltEdge> mapTo(ReconnectSessionRequest source) {
+    public Optional<SessionRequestSaltEdge> mapTo(SessionRequest source) {
         if (source == null) {
             return Optional.empty();
         }
-        ReconnectSessionRequestSaltEdge target = ReconnectSessionRequestSaltEdge.builder()
+        SessionRequestSaltEdge target = SessionRequestSaltEdge.builder()
                 .connectionId(source.getProviderGrantId())
                 .customerId(source.getProviderUserId())
-                .providerCode(source.getProviderCode())
-                .dailyRefresh(source.isDailyRefresh())
+                .providerCode(source.getAspspCode())
+                .dailyRefresh(source.getDailyRefresh())
                 .consent(SaltEdgeConsent.builder()
-                        .scopes(source.getScopes())
+                        .scopes(List.of("account_details", "transactions_details"))
                         .activationDate(source.getActivationDate())
-                        .consentValidityDays(source.getConsentValidityDays())
+                        .consentValidityDays(90D)
                         .expirationDate(source.getExpirationDate())
                         .build())
                 .attempt(SaltEdgeAttemptRequest.builder()

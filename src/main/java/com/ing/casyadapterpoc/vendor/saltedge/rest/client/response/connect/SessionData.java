@@ -13,10 +13,10 @@ import javax.validation.constraints.NotNull;
 public class SessionData {
     @NotNull
     @JsonProperty("connect_url")
-    String connectUrl;
+    String loginUrl;
 
     @NotNull
     @JsonProperty("expires_at")
-    String expiresAt;
+    String expirationDate;
 
 }

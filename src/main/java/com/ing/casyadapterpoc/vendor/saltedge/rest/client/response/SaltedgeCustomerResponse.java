@@ -1,6 +1,7 @@
-package com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais;
+package com.ing.casyadapterpoc.vendor.saltedge.rest.client.response;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeListResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltEdgeCustomer;
 
 import java.util.List;
 

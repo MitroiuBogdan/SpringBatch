@@ -1,20 +1,15 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.controllers;
 
 
-import com.ing.casyadapterpoc.vendor.saltedge.mapper.CreateSessionToSaltEdgeSessionMapper;
-import com.ing.casyadapterpoc.vendor.saltedge.mapper.ReconnectSessionToSaltEdgeSessionMapper;
-import com.ing.casyadapterpoc.vendor.saltedge.mapper.RefreshSessionToSaltEdgeSessionMapper;
+import com.ing.casyadapterpoc.vendor.saltedge.mapper.SessionToSaltEdgeSessionMapper;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.SaltEdgeClientImpl;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.*;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.SessionRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -24,12 +19,10 @@ import reactor.core.publisher.Mono;
 public class ConnectSessionController {
 
     private final SaltEdgeClientImpl saltEdgeClient;
-    private final CreateSessionToSaltEdgeSessionMapper toCreateSaltEdgeSession;
-    private final ReconnectSessionToSaltEdgeSessionMapper toReconnectSaltEdgeSession;
-    private final RefreshSessionToSaltEdgeSessionMapper toRefreshSaltEdgeSession;
+    private final SessionToSaltEdgeSessionMapper toCreateSaltEdgeSession;
 
     @PostMapping("/create")
-    public Mono<SessionData> createSession(@RequestBody CreateSessionRequest request) {
+    public Mono<SessionData> createSession(@RequestBody SessionRequest request) {
         log.info("createSession - Creating session using request: {}", request.toString());
 
         SaltEdgeRequest seRequest = toCreateSaltEdgeSession
@@ -41,11 +34,11 @@ public class ConnectSessionController {
                 .map(SaltEdgeResponse::getData);
     }
 
-    @PostMapping("/reconnect")
-    public Mono<SessionData> reconnectSession(@RequestBody ReconnectSessionRequest request) {
+    @PutMapping("/reconnect")
+    public Mono<SessionData> reconnectSession(@RequestBody SessionRequest request) {
         log.info("reconnectSession - Reconnecting session using request: {}", request.toString());
 
-        SaltEdgeRequest seRequest = toReconnectSaltEdgeSession
+        SaltEdgeRequest seRequest = toCreateSaltEdgeSession
                 .mapTo(request)
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
@@ -55,11 +48,11 @@ public class ConnectSessionController {
 
     }
 
-    @PostMapping("/refresh")
-    public Mono<SessionData> refreshSession(@RequestBody RefreshSessionRequest request) {
+    @PutMapping("/refresh")
+    public Mono<SessionData> refreshSession(@RequestBody SessionRequest request) {
         log.info("refreshSession - Refreshing session using request: {}", request.toString());
 
-        SaltEdgeRequest seRequest = toRefreshSaltEdgeSession
+        SaltEdgeRequest seRequest = toCreateSaltEdgeSession
                 .mapTo(request)
                 .map(SaltEdgeRequest::new)
                 .orElse(null);
