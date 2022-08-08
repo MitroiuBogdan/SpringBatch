@@ -1,12 +1,10 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequestDataSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccount;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccountResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransaction;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransactionResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
 import com.ing.casyadapterpoc.vendor.saltedge.utils.ResponseHelper;
@@ -28,6 +26,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private static final String SALTEDGE_TRASACTION_PATH = "v5/transactions";
     private static final String SALTEDGE_CONNECT_PATH = "v5/connect_sessions";
     private static final String SALTEDGE_OAUTH_PATH = "/v5/oauth_providers";
+    private static final String SALTEDGE_CONNECTIONS_PATH = "/v5/connections";
 
     private final WebClient webClient;
 
@@ -99,6 +98,27 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                         .build())
                 .retrieve().bodyToMono(SaltedgeTransactionResponse.class)
                 .flatMapMany(ResponseHelper::getFluxFromData);
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<SaltedgeConnection>> refreshConnectionById(String connectionId, SaltEdgeRequest<SaltEdgeAttempt> requestBody) {
+        return webClient.put()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CONNECTIONS_PATH+"/" + connectionId + "/refresh")
+                        .build())
+                .body(fromValue(requestBody))
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<SaltedgeDeleteResponse>> deleteConnectionById(String connectionId) {
+        return webClient.delete()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CONNECTIONS_PATH+"/" + connectionId)
+                        .build())
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeDeleteResponse>>() {});
     }
 
 }
