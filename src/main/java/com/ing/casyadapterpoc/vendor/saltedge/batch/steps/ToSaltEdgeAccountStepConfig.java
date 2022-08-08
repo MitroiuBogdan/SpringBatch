@@ -3,7 +3,6 @@ package com.ing.casyadapterpoc.vendor.saltedge.batch.steps;
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
 import com.ing.casyadapterpoc.common.service.delegate.AccountDelegatingService;
-import com.ing.casyadapterpoc.vendor.saltedge.batch.RefreshJobContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Step;
@@ -20,14 +19,12 @@ import java.util.List;
 @AllArgsConstructor
 public class ToSaltEdgeAccountStepConfig {
 
-    RefreshJobContext context;
     StepBuilderFactory stepBuilderFactory;
     AccountDelegatingService accountDelegatingService;
 
     @JobScope
     @Bean(name = "toSaltEdgeAccountStep")
     public Step toSaltEdgeAccountStep(@Value("#{jobParameters['connectionId']}") String connectionId) {
-        context.setConnectionId(connectionId);
         return stepBuilderFactory
                 .get("toSaltEdgeAccountStep")
                 .tasklet((contribution, chunkContext) -> {
