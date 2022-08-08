@@ -1,6 +1,6 @@
 package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.RefreshSessionRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.RefreshSessionRequestSaltEdge;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ public class RefreshSessionToSaltEdgeSessionMapper {
                 .customerId(source.getProviderUserId())
                 .providerCode(source.getProviderCode())
                 .dailyRefresh(source.isDailyRefresh())
-                .attempt(SaltEdgeAttempt.builder()
+                .attempt(SaltEdgeAttemptRequest.builder()
                         .returnTo(source.getReturnBackUrl())
                         .build())
                 .build();
