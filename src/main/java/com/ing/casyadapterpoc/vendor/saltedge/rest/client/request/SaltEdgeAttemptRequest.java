@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SaltEdgeAttempt {
+public class SaltEdgeAttemptRequest {
 
     @JsonProperty("return_to")
     String returnTo;

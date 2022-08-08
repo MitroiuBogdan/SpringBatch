@@ -1,7 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
 import lombok.*;
 
@@ -31,6 +31,6 @@ public class CreateOauthConnectionRequestDataSaltEdge {
     SaltEdgeConsent consent;
 
     @JsonProperty("attempt")
-    SaltEdgeAttempt attempt;
+    SaltEdgeAttemptRequest attempt;
 
 }

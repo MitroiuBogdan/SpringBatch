@@ -33,4 +33,6 @@ public class SaltedgeConnection {
     private String lastSuccessAt;
     @JsonProperty("last_consent_id")
     private String lastConsentId;
+    @JsonProperty("last_attempt")
+    private SaltedgeAttempt lastAttempt;
 }

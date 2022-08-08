@@ -27,4 +27,10 @@ public class ConnectionController {
         log.info("deleteConnection - deleting grant by id {}", connectionId);
         return saltedgeConnectionService.deleteById(connectionId);
     }
+
+    @GetMapping("/{connectionId}")
+    public Mono<Grant> getById(@PathVariable String connectionId) {
+        log.info("getById - getting grant by connection id {}", connectionId);
+        return saltedgeConnectionService.getById(connectionId);
+    }
 }

@@ -1,6 +1,6 @@
 package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequest;
@@ -26,7 +26,7 @@ public class CreateOauthConnectionRequestMapper implements Function<CreateOauthC
                 .consent(SaltEdgeConsent.builder()
                         .scopes(List.of("account_details", "transactions_details"))
                         .build())
-                .attempt(SaltEdgeAttempt.builder()
+                .attempt(SaltEdgeAttemptRequest.builder()
                         .fetchScopes(List.of("accounts", "transactions"))
                         .build())
                 .build();

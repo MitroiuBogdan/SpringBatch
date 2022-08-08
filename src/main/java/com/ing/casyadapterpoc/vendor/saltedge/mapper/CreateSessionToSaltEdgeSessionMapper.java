@@ -1,6 +1,6 @@
 package com.ing.casyadapterpoc.vendor.saltedge.mapper;
 
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttempt;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeConsent;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequestSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.connect.CreateSessionRequest;
@@ -27,7 +27,7 @@ public class CreateSessionToSaltEdgeSessionMapper {
                         .consentValidityDays(source.getConsentValidityDays())
                         .expirationDate(source.getExpirationDate())
                         .build())
-                .attempt(SaltEdgeAttempt.builder()
+                .attempt(SaltEdgeAttemptRequest.builder()
                         .returnTo(source.getReturnBackUrl())
                         .build())
                 .build();
