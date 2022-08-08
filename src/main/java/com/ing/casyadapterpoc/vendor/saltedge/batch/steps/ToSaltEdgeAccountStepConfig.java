@@ -2,7 +2,7 @@ package com.ing.casyadapterpoc.vendor.saltedge.batch.steps;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
-import com.ing.casyadapterpoc.common.service.AccountDelegatingService;
+import com.ing.casyadapterpoc.common.service.delegate.AccountDelegatingService;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.RefreshJobContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,10 @@
-package com.ing.casyadapterpoc.common.service;
+package com.ing.casyadapterpoc.common.service.delegate;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
 import com.ing.casyadapterpoc.common.domain.casy_entity.User;
+import com.ing.casyadapterpoc.common.service.UserVendorService;
+import com.ing.casyadapterpoc.common.service.VendorServiceSelector;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

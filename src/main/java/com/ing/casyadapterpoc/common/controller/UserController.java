@@ -2,7 +2,7 @@ package com.ing.casyadapterpoc.common.controller;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.domain.casy_entity.User;
-import com.ing.casyadapterpoc.common.service.UserDelegatingService;
+import com.ing.casyadapterpoc.common.service.delegate.UserDelegatingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

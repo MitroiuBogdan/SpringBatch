@@ -2,8 +2,8 @@ package com.ing.casyadapterpoc.common.controller;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.domain.casy_entity.Transaction;
-import com.ing.casyadapterpoc.common.service.ExcelWriterDelegatingService;
-import com.ing.casyadapterpoc.common.service.TransactionDelegatingService;
+import com.ing.casyadapterpoc.common.service.delegate.ExcelWriterDelegatingService;
+import com.ing.casyadapterpoc.common.service.delegate.TransactionDelegatingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

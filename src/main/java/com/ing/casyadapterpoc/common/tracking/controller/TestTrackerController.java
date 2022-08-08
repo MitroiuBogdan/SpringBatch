@@ -1,7 +1,7 @@
-package com.ing.casyadapterpoc.common.controller;
+package com.ing.casyadapterpoc.common.tracking.controller;
 
 import com.ing.casyadapterpoc.common.tracking.TestTracker;
-import com.ing.casyadapterpoc.common.service.TestTrackerService;
+import com.ing.casyadapterpoc.common.tracking.service.TestTrackerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.GetMapping;

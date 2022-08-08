@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.common.controller.request;
+package com.ing.casyadapterpoc.common.tracking.request;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
 

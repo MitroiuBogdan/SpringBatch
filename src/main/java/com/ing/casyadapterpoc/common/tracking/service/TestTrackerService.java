@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.common.service;
+package com.ing.casyadapterpoc.common.tracking.service;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.tracking.TestTracker;

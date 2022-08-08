@@ -11,7 +11,6 @@ public class CommonProperties {
     String saltedgeTrxPath;
 
     String tinkAccountPath;
-    String tinkTransactionPath;
-    String tinkGrantPath;
+    String tinkTrxPath;
 
 }

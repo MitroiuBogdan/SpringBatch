@@ -1,4 +1,4 @@
-package com.ing.casyadapterpoc.common.service;
+package com.ing.casyadapterpoc.common.service.delegate;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
 import com.ing.casyadapterpoc.common.domain.casy_entity.Account;
@@ -29,7 +29,7 @@ public class ExcelWriterDelegatingService {
             writeObjectToExcelFile(transaction, commonProperties.getSaltedgeTrxPath());
         }
         if (vendor == Vendor.TINK) {
-            writeObjectToExcelFile(transaction, commonProperties.getTinkTransactionPath());
+            writeObjectToExcelFile(transaction, commonProperties.getTinkTrxPath());
         }
     }
 }
