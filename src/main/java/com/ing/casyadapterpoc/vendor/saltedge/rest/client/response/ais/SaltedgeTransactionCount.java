@@ -3,8 +3,7 @@ package com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais;
 import lombok.*;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @ToString

@@ -5,8 +5,6 @@ import lombok.*;
 
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
 @NoArgsConstructor
 @Data
 public class SaltedgeConnection {

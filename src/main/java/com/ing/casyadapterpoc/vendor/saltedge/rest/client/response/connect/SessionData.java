@@ -14,7 +14,7 @@ public class SessionData {
     @NotNull
     @JsonProperty("connect_url")
     String connectUrl;
-//    TODO: to be changed to ZoneDateTime -> fix jackson dependency
+
     @NotNull
     @JsonProperty("expires_at")
     String expiresAt;

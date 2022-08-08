@@ -13,7 +13,7 @@ import static com.ing.casyadapterpoc.common.logging.LoggingHelper.buildLogMessag
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("casypoc")
+@RequestMapping()
 @Slf4j
 public class TransactionController {
     private final TransactionDelegatingService transactionDelegatingService;

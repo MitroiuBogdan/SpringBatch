@@ -10,6 +10,7 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateO
 import com.ing.casyadapterpoc.vendor.saltedge.utils.ResponseHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -108,7 +109,8 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {
+                });
     }
 
     @Override
@@ -118,7 +120,30 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                         .path(SALTEDGE_CONNECTIONS_PATH + "/" + connectionId)
                         .build())
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeDeleteResponse>>() {});
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeDeleteResponse>>() {
+                });
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<SaltEdgeCustomer>> createCustomer(SaltEdgeRequest requestBody) {
+        return webClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CUSTOMER_PATH)
+                        .build())
+                .body(fromValue(requestBody))
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltEdgeCustomer>>() {
+                });
+    }
+
+    @Override
+    public Mono<ResponseEntity<Void>> deleteCustomer(String userId) {
+        return webClient.delete()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CUSTOMER_PATH + "/" + userId)
+                        .build())
+                .retrieve()
+                .toBodilessEntity();
     }
 
     @Override
@@ -131,4 +156,22 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                 .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
     }
 
+    @Override
+    public Flux<SaltEdgeCustomer> getAllCustomers() {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_CUSTOMER_PATH)
+                        .build())
+                .retrieve().bodyToMono(SaltedgeCustomerResponse.class)
+                .flatMapMany(ResponseHelper::getFluxFromData);
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<SaltEdgeCustomer>> getCustomerById(String userId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_CUSTOMER_PATH + "/" + userId)
+                        .build())
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltEdgeCustomer>>() {
+                });
+    }
 }
