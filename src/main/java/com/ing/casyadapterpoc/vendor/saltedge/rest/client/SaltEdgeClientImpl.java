@@ -28,6 +28,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private static final String SALTEDGE_CONNECT_PATH = "v5/connect_sessions";
     private static final String SALTEDGE_OAUTH_PATH = "/v5/oauth_providers";
     private static final String SALTEDGE_CONNECTIONS_PATH = "/v5/connections";
+    private static final String SALTEDGE_CUSTOMER_PATH="/v5/customers";
 
     private final WebClient webClient;
 
@@ -125,6 +126,16 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     }
 
     @Override
+    public Mono<SaltEdgeResponse<SaltedgeConnection>> getById(String connectionId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CONNECTIONS_PATH+ "/" + connectionId)
+                        .build())
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
+    }
+
+    @Override
     public Mono<SaltEdgeResponse<SaltEdgeCustomer>> createCustomer(SaltEdgeRequest requestBody) {
         return webClient.post()
                 .uri(uriBuilder -> uriBuilder
@@ -144,16 +155,6 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                         .build())
                 .retrieve()
                 .toBodilessEntity();
-    }
-
-    @Override
-    public Mono<SaltEdgeResponse<SaltedgeConnection>> getById(String connectionId) {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECTIONS_PATH+ "/" + connectionId)
-                        .build())
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
     }
 
     @Override
