@@ -27,6 +27,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private static final String SALTEDGE_CONNECT_PATH = "v5/connect_sessions";
     private static final String SALTEDGE_OAUTH_PATH = "/v5/oauth_providers";
     private static final String SALTEDGE_CONNECTIONS_PATH = "/v5/connections";
+    private static final String SALTEDGE_CUSTOMER_PATH = "/v5/customers";
 
     private final WebClient webClient;
 
@@ -104,21 +105,35 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     public Mono<SaltEdgeResponse<SaltedgeConnection>> refreshConnectionById(String connectionId, SaltEdgeRequest<SaltEdgeAttempt> requestBody) {
         return webClient.put()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECTIONS_PATH+"/" + connectionId + "/refresh")
+                        .path(SALTEDGE_CONNECTIONS_PATH + "/" + connectionId + "/refresh")
                         .build())
                 .body(fromValue(requestBody))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {
+                });
     }
 
     @Override
     public Mono<SaltEdgeResponse<SaltedgeDeleteResponse>> deleteConnectionById(String connectionId) {
         return webClient.delete()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECTIONS_PATH+"/" + connectionId)
+                        .path(SALTEDGE_CONNECTIONS_PATH + "/" + connectionId)
                         .build())
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeDeleteResponse>>() {});
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeDeleteResponse>>() {
+                });
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<SaltEdgeCustomer>> createCustomer(SaltEdgeRequest requestBody) {
+        return webClient.post()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_CUSTOMER_PATH)
+                        .build())
+                .body(fromValue(requestBody))
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltEdgeCustomer>>() {
+                });
     }
 
 }

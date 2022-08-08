@@ -1,6 +1,7 @@
 package com.ing.casyadapterpoc.common.service;
 
 import com.ing.casyadapterpoc.common.domain.Vendor;
+import com.ing.casyadapterpoc.common.domain.casy_entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -15,13 +16,13 @@ public class UserDelegatingService {
 
     private final List<UserVendorService> userVendorServices;
 
-    public Mono<String> createUser(Vendor vendor){
+    public Mono<User> createUser(Vendor vendor, String identifier) {
         return selectVendorService(userVendorServices, vendor)
-                .createUser();
+                .createUser(identifier);
     }
 
-    public Mono<Void> deleteUser(Vendor vendor, String userId){
-        return selectVendorService(userVendorServices,vendor)
+    public Mono<Void> deleteUser(Vendor vendor, String userId) {
+        return selectVendorService(userVendorServices, vendor)
                 .deleteUser(userId);
     }
 

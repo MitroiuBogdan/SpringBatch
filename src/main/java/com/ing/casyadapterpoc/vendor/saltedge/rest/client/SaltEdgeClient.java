@@ -4,10 +4,7 @@ import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemp
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequestDataSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeAccount;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeConnection;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeDeleteResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.SaltedgeTransaction;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
 import reactor.core.publisher.Flux;
@@ -34,4 +31,6 @@ public interface SaltEdgeClient {
     Mono<SaltEdgeResponse<SaltedgeConnection>> refreshConnectionById(String connectionId, SaltEdgeRequest<SaltEdgeAttempt> requestBody);
 
     Mono<SaltEdgeResponse<SaltedgeDeleteResponse>> deleteConnectionById(String connectionId);
+
+    Mono<SaltEdgeResponse<SaltEdgeCustomer>> createCustomer(SaltEdgeRequest requestBody);
 }

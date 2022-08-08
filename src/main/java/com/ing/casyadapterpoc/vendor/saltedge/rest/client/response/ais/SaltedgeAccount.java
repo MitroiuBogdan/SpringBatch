@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @Getter
-@Setter
 @NoArgsConstructor
 @Data
 public class SaltedgeAccount {
