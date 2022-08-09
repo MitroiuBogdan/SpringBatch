@@ -3,10 +3,7 @@ package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequestDataSaltEdge;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltedgeAccountResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltedgeCustomerResponse;
-import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltedgeTransactionResponse;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
@@ -18,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.Optional.ofNullable;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
@@ -31,8 +30,8 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private static final String SALTEDGE_CONNECT_PATH = "v5/connect_sessions";
     private static final String SALTEDGE_OAUTH_PATH = "/v5/oauth_providers";
     private static final String SALTEDGE_CONNECTIONS_PATH = "/v5/connections";
-    private static final String SALTEDGE_CUSTOMER_PATH="/v5/customers";
-
+    private static final String SALTEDGE_CUSTOMER_PATH = "/v5/customers";
+    private static final String SALTEDGE_PROVIDER_PATH = "/v5/providers";
     private final WebClient webClient;
 
     @Override
@@ -132,7 +131,7 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     public Mono<SaltEdgeResponse<SaltedgeConnection>> getById(String connectionId) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(SALTEDGE_CONNECTIONS_PATH+ "/" + connectionId)
+                        .path(SALTEDGE_CONNECTIONS_PATH + "/" + connectionId)
                         .build())
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
@@ -176,6 +175,41 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                         .build())
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltEdgeCustomer>>() {
+                });
+    }
+
+    @Override
+    public Mono<SaltEdgeResponse<SaltedgeProvider>> getAspspByProviderCode(String providerCode) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_PROVIDER_PATH + "/" + providerCode)
+                        .build())
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeProvider>>() {
+                });
+    }
+
+    @Override
+    public Flux<SaltEdgeListResponse<SaltedgeProvider>> getAspsps() {
+        AtomicInteger nextId = new AtomicInteger();
+        return Mono.defer(() -> getAspspsPage(nextId))
+                .doOnNext(saltedgeResponse -> {
+                    if (saltedgeResponse.getMeta() != null && saltedgeResponse.getMeta().getNextId() != 0) {
+                        nextId.set(saltedgeResponse.getMeta().getNextId());
+                    } else {
+                        nextId.set(-1);
+                    }
+                })
+                .repeat(() -> nextId.get() != -1);
+    }
+
+    private Mono<SaltEdgeListResponse<SaltedgeProvider>> getAspspsPage(AtomicInteger nextId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(SALTEDGE_PROVIDER_PATH)
+                        .queryParam("from_id", nextId)
+                        .build())
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeListResponse<SaltedgeProvider>>() {
                 });
     }
 }

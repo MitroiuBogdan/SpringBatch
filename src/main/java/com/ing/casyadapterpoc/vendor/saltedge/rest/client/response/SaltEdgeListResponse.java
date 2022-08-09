@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public abstract class SaltEdgeListResponse<T> {
+public class SaltEdgeListResponse<T> {
 
     private List<T> data;
+
+    private SaltedgeResponseMetaData meta;
 
     protected SaltEdgeListResponse(List<T> data) {
         safeSetData(data);

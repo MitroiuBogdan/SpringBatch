@@ -3,6 +3,8 @@ package com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Builder
 @Getter
@@ -22,5 +24,5 @@ public class SaltedgeStage {
     @JsonProperty("interactive_html")
     private String interactiveHtml;
     @JsonProperty("interactive_fields_names")
-    private String interactiveFieldsNames;
+    private List<String> interactiveFieldsNames;
 }
