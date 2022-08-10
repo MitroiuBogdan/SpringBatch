@@ -22,6 +22,7 @@ public class SessionToSaltEdgeSessionMapper {
                 .connectionId(source.getProviderGrantId())
                 .customerId(source.getProviderUserId())
                 .providerCode(source.getAspspCode())
+                .categorization(source.getCategorization())
                 .dailyRefresh(source.getDailyRefresh())
                 .consent(SaltEdgeConsent.builder()
                         .scopes(List.of("account_details", "transactions_details"))

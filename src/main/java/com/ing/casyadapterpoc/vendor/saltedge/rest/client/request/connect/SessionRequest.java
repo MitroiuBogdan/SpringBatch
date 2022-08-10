@@ -16,4 +16,5 @@ public class SessionRequest {
     String activationDate;
     String expirationDate;
     Boolean dailyRefresh;
+    String categorization;
 }

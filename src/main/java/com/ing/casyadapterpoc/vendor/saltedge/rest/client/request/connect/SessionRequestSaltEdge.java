@@ -35,4 +35,7 @@ public class SessionRequestSaltEdge {
     @JsonProperty("daily_refresh")
     Boolean dailyRefresh;
 
+    @JsonProperty("categorization")
+    String categorization;
+
 }
