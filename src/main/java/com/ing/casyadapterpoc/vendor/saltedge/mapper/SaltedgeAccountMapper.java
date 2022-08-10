@@ -25,6 +25,7 @@ public class SaltedgeAccountMapper implements Function<SaltedgeAccount, Account>
                         .currency(saltedgeAccount.getCurrency_code())
                         .build())
                 .providerGrantId(saltedgeAccount.getConnection_id())
+                .linkedAccount(saltedgeAccount.getExtra().getAccount_number())
                 .lastRefreshTimestampProvider(saltedgeAccount.getUpdated_at())
                 .availableCredit(saltedgeAccount.getExtra().getAvailable_amount())
                 .accountHolderName(saltedgeAccount.getExtra().getClient_name())
