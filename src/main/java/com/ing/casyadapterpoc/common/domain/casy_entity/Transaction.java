@@ -29,4 +29,7 @@ public class Transaction {
     private String purposeCode;
     private String valueDate;
 
+    //Extra used for enrichment
+    private String merchantId;
+
 }

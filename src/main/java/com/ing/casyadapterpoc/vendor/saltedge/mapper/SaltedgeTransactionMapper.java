@@ -34,6 +34,7 @@ public class SaltedgeTransactionMapper implements Function<SaltedgeTransaction, 
                 .externalId(saltedgeTransaction.getExtra().getId())
                 .creditorName(saltedgeTransaction.getExtra().getPayee_information())
                 .debtorName(saltedgeTransaction.getExtra().getPayer_information())
+                .merchantId(saltedgeTransaction.getExtra().getMerchant_id())
                 .creditor(Merchant.builder()
                         .iban(saltedgeTransaction.getExtra().getPayee())
                         .build())
