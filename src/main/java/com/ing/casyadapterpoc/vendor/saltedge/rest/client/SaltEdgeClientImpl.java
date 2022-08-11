@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Optional.ofNullable;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
@@ -190,23 +190,23 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
 
     @Override
     public Flux<SaltEdgeListResponse<SaltedgeProvider>> getAspsps() {
-        AtomicInteger nextId = new AtomicInteger();
+        AtomicReference<String> nextId = new AtomicReference<>("0");
         return Mono.defer(() -> getAspspsPage(nextId))
                 .doOnNext(saltedgeResponse -> {
-                    if (saltedgeResponse.getMeta() != null && saltedgeResponse.getMeta().getNextId() != 0) {
+                    if (saltedgeResponse.getMeta() != null && !"0".equals(saltedgeResponse.getMeta().getNextId())) {
                         nextId.set(saltedgeResponse.getMeta().getNextId());
                     } else {
-                        nextId.set(-1);
+                        nextId.set(null);
                     }
                 })
-                .repeat(() -> nextId.get() != -1);
+                .repeat(() -> nextId.get() != null);
     }
 
-    private Mono<SaltEdgeListResponse<SaltedgeProvider>> getAspspsPage(AtomicInteger nextId) {
+    private Mono<SaltEdgeListResponse<SaltedgeProvider>> getAspspsPage(AtomicReference<String> nextId) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(SALTEDGE_PROVIDER_PATH)
-                        .queryParam("from_id", nextId)
+                        .queryParam("from_id", nextId.get())
                         .build())
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<SaltEdgeListResponse<SaltedgeProvider>>() {
