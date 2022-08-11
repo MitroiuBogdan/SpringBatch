@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SaltedgeResponseMetaData {
     @JsonProperty("next_id")
-    private int nextId;
+    private String nextId;
     @JsonProperty("next_page")
     private String nextPage;
 }
