@@ -2,11 +2,13 @@ package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.enrichment.MerchantsInfoRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequestDataSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeListResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.SaltEdgeResponse;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.enrichment.MerchantInfo;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Flux;
@@ -47,4 +49,7 @@ public interface SaltEdgeClient {
     Mono<SaltEdgeResponse<SaltedgeProvider>> getAspspByProviderCode(String providerAspspId);
 
     Flux<SaltEdgeListResponse<SaltedgeProvider>> getAspsps();
+
+    //Enrichment
+    Flux<MerchantInfo> getMerchantsInfo(MerchantsInfoRequest request);
 }

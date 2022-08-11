@@ -2,10 +2,12 @@ package com.ing.casyadapterpoc.vendor.saltedge.rest.client;
 
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeAttemptRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.SaltEdgeRequest;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.enrichment.MerchantsInfoRequest;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.request.oauth.CreateOauthConnectionRequestDataSaltEdge;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.ais.*;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.connect.SessionData;
+import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.enrichment.MerchantInfo;
 import com.ing.casyadapterpoc.vendor.saltedge.rest.client.response.oauth.CreateOauthConnectionSaltEdgeResponseData;
 import com.ing.casyadapterpoc.vendor.saltedge.utils.ResponseHelper;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,9 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
     private static final String SALTEDGE_CONNECTIONS_PATH = "/v5/connections";
     private static final String SALTEDGE_CUSTOMER_PATH = "/v5/customers";
     private static final String SALTEDGE_PROVIDER_PATH = "/v5/providers";
+    private static final String SALTEDGE_MERCHANT_PATH = "/v5/merchants";
+    private static final String SALTEDGE_ENRICHMENT_PATH = "/v5/enrichment";
+
     private final WebClient webClient;
 
     @Override
@@ -134,7 +139,8 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                         .path(SALTEDGE_CONNECTIONS_PATH + "/" + connectionId)
                         .build())
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {});
+                .bodyToMono(new ParameterizedTypeReference<SaltEdgeResponse<SaltedgeConnection>>() {
+                });
     }
 
     @Override
@@ -212,4 +218,15 @@ public class SaltEdgeClientImpl implements SaltEdgeClient {
                 .bodyToMono(new ParameterizedTypeReference<SaltEdgeListResponse<SaltedgeProvider>>() {
                 });
     }
+
+    @Override
+    public Flux<MerchantInfo> getMerchantsInfo(MerchantsInfoRequest request) {
+        return webClient.post()
+                .uri(uriBuilder -> uriBuilder.path(SALTEDGE_MERCHANT_PATH)
+                        .build())
+                .body(fromValue(request))
+                .retrieve().bodyToMono(SaltedgeMerchantResponse.class)
+                .flatMapMany(ResponseHelper::getFluxFromData);
+    }
+
 }
