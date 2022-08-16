@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
-@RequestMapping("/saltedge/connections")
+@RequestMapping("/SALTEDGE/connections")
 @AllArgsConstructor
 public class ConnectionController {
 

@@ -20,9 +20,9 @@ public class UserController {
 
     UserDelegatingService userDelegatingService;
 
-    @PostMapping({"{vendor}/users/create"})
+    @PostMapping({"{vendor}/users/{identifier}"})
     public Mono<User> createUser(@PathVariable Vendor vendor,
-                                 @RequestParam String identifier) {
+                                 @PathVariable String identifier) {
         log.info("Create user for vendor: {}, identifier: {}", vendor.name(), identifier);
         return userDelegatingService.createUser(vendor, identifier)
                 .doOnNext(user -> log.info(buildLogMessage(user)));

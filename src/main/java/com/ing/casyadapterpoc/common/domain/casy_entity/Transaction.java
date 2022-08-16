@@ -30,6 +30,8 @@ public class Transaction {
     private String valueDate;
 
     //Extra used for enrichment
+    private String category;
     private String merchantId;
+
 
 }

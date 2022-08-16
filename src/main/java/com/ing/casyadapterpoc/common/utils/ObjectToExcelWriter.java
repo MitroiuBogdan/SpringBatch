@@ -38,7 +38,7 @@ public class ObjectToExcelWriter {
         }
         ObjectNode jsonNode = (ObjectNode) objectMapper.readTree(jsonStr);
 
-        log.info("Initial row number: {}", sheet.getLastRowNum());
+//        log.info("Initial row number: {}", sheet.getLastRowNum());
 
         if (sheet.getLastRowNum() < 1) {
             Row headerRow = sheet.createRow(0);
@@ -67,7 +67,7 @@ public class ObjectToExcelWriter {
                 if (RowType.HEADER == rowType) {
                     String headerValue = constructHeaderValue(parentNodeName, field.getKey());
                     createCell(row, startCellIndex, headerValue);
-                    log.info("Creating header with - Index :{} - Key: {}, Value: {}", startCellIndex, field.getKey(), field.getValue().toString());
+//                    log.info("Creating header with - Index :{} - Key: {}, Value: {}", startCellIndex, field.getKey(), field.getValue().toString());
                 } else {
                     String value;
                     if (field.getValue().isDouble()) {
@@ -76,7 +76,7 @@ public class ObjectToExcelWriter {
                         value = !isBlank(field.getValue().textValue()) ? field.getValue().textValue() : "null";
                     }
                     createCell(row, startCellIndex, value);
-                    log.info("Index :{} - Key: {}, Value: {}", startCellIndex, field.getKey(),field.getValue());
+//                    log.info("Index :{} - Key: {}, Value: {}", startCellIndex, field.getKey(),field.getValue());
                 }
                 startCellIndex++;
             }
