@@ -12,10 +12,13 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @Configuration
 @EnableBatchProcessing
-@AllArgsConstructor
 public class SpringBatchConfig {
 
     private final JobRepository jobRepository;
+
+    public SpringBatchConfig(JobRepository jobRepository) {
+        this.jobRepository = jobRepository;
+    }
 
     @Bean(name = "jobLauncherPoc")
     protected JobLauncher jobLauncher(TaskExecutor taskExecutorPoc) {
