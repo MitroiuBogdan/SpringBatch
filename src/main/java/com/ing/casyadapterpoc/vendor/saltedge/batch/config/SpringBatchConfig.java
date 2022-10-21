@@ -1,6 +1,5 @@
 package com.ing.casyadapterpoc.vendor.saltedge.batch.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
