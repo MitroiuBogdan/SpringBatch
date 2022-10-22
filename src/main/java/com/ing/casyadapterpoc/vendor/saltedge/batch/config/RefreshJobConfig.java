@@ -28,8 +28,8 @@ public class RefreshJobConfig {
                 .get("refreshSaltEdgeDataJob")
                 .listener(refreshJobExecutionListener)
                 .incrementer(new RunIdIncrementer())
-                .start(toSaltEdgeAccountStep)
-                .next(toAccount2Step)
+//                .start(toSaltEdgeAccountStep)
+                .start(toAccount2Step)
                 .build();
 
     }

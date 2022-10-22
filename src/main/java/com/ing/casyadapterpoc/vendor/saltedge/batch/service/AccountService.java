@@ -16,7 +16,7 @@ public class AccountService {
 //        if (index == 0) {
 //            throw new RuntimeException("HELLLO");
 //        } else {
-            System.out.println("getAccounts - " + index);
+
             index++;
             return IntStream.range(0, 100)
                     .mapToObj(operand -> new Account(String.valueOf(Math.random())))

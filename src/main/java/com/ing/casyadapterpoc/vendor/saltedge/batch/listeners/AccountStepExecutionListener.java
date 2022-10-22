@@ -19,6 +19,6 @@ public class AccountStepExecutionListener implements StepExecutionListener {
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         System.out.println("AFTER STEP " + stepExecution.getExitStatus());
-        return null;
+        return ExitStatus.FAILED;
     }
 }

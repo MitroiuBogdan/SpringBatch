@@ -17,7 +17,7 @@ public class RefreshJobContext {
     }
 
     public void setJobStatus(String jobStatus) {
-        this.jobStatus = jobStatus;
+            this.jobStatus = jobStatus;
     }
 
     @PreDestroy

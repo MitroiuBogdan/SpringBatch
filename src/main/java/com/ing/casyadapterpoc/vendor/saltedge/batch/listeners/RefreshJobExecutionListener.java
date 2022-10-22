@@ -1,6 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.batch.listeners;
 
 import com.ing.casyadapterpoc.vendor.saltedge.batch.RefreshJobContext;
+import com.ing.casyadapterpoc.vendor.saltedge.batch.config.TestStatic;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ public class RefreshJobExecutionListener implements JobExecutionListener {
 
     @Override
     public void beforeJob(JobExecution jobExecution) {
-        System.out.println("BEFORE JOB");
+        TestStatic.increment();
     }
 
     @Override
     public void afterJob(JobExecution jobExecution) {
-        System.out.println("AFTER JOB" + refreshJobContext.getJobStatus());
+        System.out.println("AFTER JOB " + refreshJobContext.getJobStatus());
         jobExecution.getStepExecutions().stream().forEach(stepExecution -> {
             System.out.println(stepExecution.getStepName() + " " + stepExecution.getExitStatus());
         });

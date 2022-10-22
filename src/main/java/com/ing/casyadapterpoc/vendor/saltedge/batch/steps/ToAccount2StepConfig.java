@@ -7,7 +7,9 @@ import com.ing.casyadapterpoc.vendor.saltedge.batch.model.AccountData;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.service.AccountService;
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.Step;
+import org.springframework.batch.core.*;
+import org.springframework.batch.core.annotation.AfterJob;
+import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -15,6 +17,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ListItemReader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,12 +33,13 @@ public class ToAccount2StepConfig {
     private final AccountService accountService;
     private final RefreshJobContext refreshJobContext;
 
-    public ToAccount2StepConfig(StepBuilderFactory stepBuilderFactory,
-                                AccountService accountService,
-                                RefreshJobContext refreshJobContext) {
+
+    public ToAccount2StepConfig(StepBuilderFactory stepBuilderFactory, AccountService accountService, RefreshJobContext refreshJobContext) {
         this.stepBuilderFactory = stepBuilderFactory;
         this.accountService = accountService;
         this.refreshJobContext = refreshJobContext;
+
+
     }
 
 
@@ -46,9 +50,8 @@ public class ToAccount2StepConfig {
                 .get("toAccount2Step")
                 .<Account, AccountData>chunk(70)
                 .reader(toAccountReader2())
-                .processor(toAccountProcessor2())
+                .processor(toAccountProcessor2(null))
                 .writer(toAccountWriter2())
-                .listener(new AccountStepExecutionListener())
                 .build();
     }
 
@@ -67,13 +70,16 @@ public class ToAccount2StepConfig {
 
     @Bean
     @StepScope
-    public ItemProcessor<Account, AccountData> toAccountProcessor2() {
+    public ItemProcessor<Account, AccountData> toAccountProcessor2(@Value("#{jobParameters['connectionId']}") String connectionId) {
         return account ->
-
-        {
-            return Try.of(() -> new AccountData(account.getId()))
-                    .getOrNull();
-        };
+                Try.of(() -> {
+//                    System.out.println(account);
+                    return new AccountData(account.getId());
+                })
+                        .getOrElse(() -> {
+                            refreshJobContext.setJobStatus(connectionId + " - FAILED");
+                            return null;
+                        });
     }
 
     @Bean
@@ -84,6 +90,8 @@ public class ToAccount2StepConfig {
             System.out.println("accountData - " + accountData.stream().map(accountData1 -> accountData1.getId()).collect(Collectors.toList()));
         };
     }
+
+
 }
 
 
