@@ -1,5 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.batch.config;
 
+import com.ing.casyadapterpoc.exceptions.InternalException;
+import com.ing.casyadapterpoc.exceptions.InternalExceptionDictionary;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.listeners.RefreshJobExecutionListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;

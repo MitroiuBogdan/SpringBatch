@@ -1,5 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.batch.steps;
 
+import com.ing.casyadapterpoc.exceptions.InternalException;
+import com.ing.casyadapterpoc.exceptions.InternalExceptionDictionary;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.RefreshJobContext;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.listeners.AccountStepExecutionListener;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.model.Account;
@@ -58,12 +60,14 @@ public class ToAccount2StepConfig {
     @Bean
     @StepScope
     public ItemReader<Account> toAccountReader2() {
+
         List<Account> accountList = Try.of(() -> accountService.getAccounts())
                 .getOrElseGet(throwable -> {
                     System.out.println("Some error occured");
                     return new ArrayList<>();
                 });
-        return new ListItemReader<>(accountList);
+        throw new InternalException(InternalExceptionDictionary.EXCEPTION.getMessage());
+//        return new ListItemReader<>(accountList);
 
 
     }

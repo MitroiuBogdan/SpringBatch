@@ -1,5 +1,7 @@
 package com.ing.casyadapterpoc.vendor.saltedge.batch.service;
 
+import com.ing.casyadapterpoc.exceptions.InternalException;
+import com.ing.casyadapterpoc.exceptions.InternalExceptionDictionary;
 import com.ing.casyadapterpoc.vendor.saltedge.batch.model.Account;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class AccountService {
 //        if (index == 0) {
 //            throw new RuntimeException("HELLLO");
 //        } else {
-
+//        throw new InternalException(InternalExceptionDictionary.EXCEPTION.getMessage());
             index++;
             return IntStream.range(0, 100)
                     .mapToObj(operand -> new Account(String.valueOf(Math.random())))

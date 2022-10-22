@@ -56,6 +56,7 @@ public class ToSaltEdgeAccountStepConfig {
     @Bean
     @StepScope
     public ItemReader<Account> toAccountReader() {
+
         List<Account> accountList = Try.of(() -> accountService.getAccounts())
                 .getOrElseGet(throwable -> {
                     System.out.println("Some error occured");
