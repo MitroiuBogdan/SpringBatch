@@ -18,22 +18,21 @@ import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Configuration
-public class ToSaltEdgeAccountStepConfig {
+public class ToAccount2StepConfig {
 
     private final StepBuilderFactory stepBuilderFactory;
     private final AccountService accountService;
     private final RefreshJobContext refreshJobContext;
 
-    public ToSaltEdgeAccountStepConfig(StepBuilderFactory stepBuilderFactory,
-                                       AccountService accountService,
-                                       RefreshJobContext refreshJobContext) {
+    public ToAccount2StepConfig(StepBuilderFactory stepBuilderFactory,
+                                AccountService accountService,
+                                RefreshJobContext refreshJobContext) {
         this.stepBuilderFactory = stepBuilderFactory;
         this.accountService = accountService;
         this.refreshJobContext = refreshJobContext;
@@ -41,27 +40,26 @@ public class ToSaltEdgeAccountStepConfig {
 
 
     @JobScope
-    @Bean(name = "toSaltEdgeAccountStep")
-    public Step toSaltEdgeAccountStep() {
+    @Bean(name = "toAccount2Step")
+    public Step toAccount2Step() {
         return stepBuilderFactory
-                .get("toSaltEdgeAccountStep")
+                .get("toAccount2Step")
                 .<Account, AccountData>chunk(70)
-                .reader(toAccountReader())
-                .processor(toAccountProcessor())
-                .writer(toAccountWriter())
+                .reader(toAccountReader2())
+                .processor(toAccountProcessor2())
+                .writer(toAccountWriter2())
                 .listener(new AccountStepExecutionListener())
                 .build();
     }
 
     @Bean
     @StepScope
-    public ItemReader<Account> toAccountReader() {
+    public ItemReader<Account> toAccountReader2() {
         List<Account> accountList = Try.of(() -> accountService.getAccounts())
                 .getOrElseGet(throwable -> {
                     System.out.println("Some error occured");
                     return new ArrayList<>();
                 });
-        refreshJobContext.setJobStatus(LocalDateTime.now().toString());
         return new ListItemReader<>(accountList);
 
 
@@ -69,7 +67,7 @@ public class ToSaltEdgeAccountStepConfig {
 
     @Bean
     @StepScope
-    public ItemProcessor<Account, AccountData> toAccountProcessor() {
+    public ItemProcessor<Account, AccountData> toAccountProcessor2() {
         return account ->
 
         {
@@ -80,9 +78,12 @@ public class ToSaltEdgeAccountStepConfig {
 
     @Bean
     @StepScope
-    public ItemWriter<AccountData> toAccountWriter() {
-        return accountData -> System.out.println("accountData - " + accountData.stream().map(accountData1 -> accountData1.getId()).collect(Collectors.toList()));
+    public ItemWriter<AccountData> toAccountWriter2() {
+        return accountData -> {
+            System.out.println(refreshJobContext.getJobStatus());
+            System.out.println("accountData - " + accountData.stream().map(accountData1 -> accountData1.getId()).collect(Collectors.toList()));
+        };
     }
-
-
 }
+
+

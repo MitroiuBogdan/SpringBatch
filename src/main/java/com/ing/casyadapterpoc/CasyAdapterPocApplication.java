@@ -23,7 +23,11 @@ public class CasyAdapterPocApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         saltEdgeRefreshService.startDataFetching("0000000001");
+//        saltEdgeRefreshService.startDataFetching("0000000002");
+//        saltEdgeRefreshService.startDataFetching("0000000003");
+//        saltEdgeRefreshService.startDataFetching("0000000004");
 
     }
 }
