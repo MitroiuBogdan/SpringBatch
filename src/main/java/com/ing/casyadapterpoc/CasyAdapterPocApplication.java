@@ -28,21 +28,7 @@ public class CasyAdapterPocApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Account account = null;
-        Try.run(() -> {
-            System.out.println("Hello");
-            throw new RuntimeException("ads");
-        }).onFailure(throwable -> System.out.println("aaaa"));
-//                .peek(account1 -> {
-//                    System.out.println("Hello");
-//                    account1.setName("Ella");
-//                })
-//                .andThen(account1 -> System.out.println(account1.getId() + " " + account1.getName()));
-
-        Account x = Option.of(account)
-                .peek(this::accountConsumer)
-//                .map(account1 -> account1)
-                .getOrNull();
+        saltEdgeRefreshService.startDataFetching("000000000000001");
 
 
     }
@@ -55,6 +41,6 @@ public class CasyAdapterPocApplication implements CommandLineRunner {
         }
     }
 
-    ;
+
 }
 

@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,7 +61,7 @@ public class ToSaltEdgeAccountStepConfig {
         List<Account> accountList = Try.of(() -> accountService.getAccounts())
                 .getOrElseGet(throwable -> {
                     System.out.println("Some error occured");
-                    return new ArrayList<>();
+                    return new LinkedList<>();
                 });
         refreshJobContext.setJobStatus(LocalDateTime.now().toString());
         return new ListItemReader<>(accountList);

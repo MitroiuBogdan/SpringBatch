@@ -9,8 +9,8 @@ public class AccountData {
     }
 
     public AccountData(String id) {
-        throw new RuntimeException("das");
-//        this.id = id;
+//        throw new RuntimeException("das");
+        this.id = id;
     }
     public String getId() {
         return id;

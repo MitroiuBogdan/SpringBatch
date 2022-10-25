@@ -23,4 +23,12 @@ public class Account {
     public Account(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
